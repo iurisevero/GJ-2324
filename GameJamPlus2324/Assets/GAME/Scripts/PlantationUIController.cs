@@ -22,9 +22,12 @@ public class PlantationUIController : MonoBehaviour
     public Image reloadFill;
     public IEnumerator fillCoroutine;
 
+    public GameObject pressEObj;
+
     private void Start()
     {
         reloadObj.SetActive(false);
+        pressEObj.SetActive(false);
     }
 
     private void TogglePos(string pos)
@@ -74,6 +77,16 @@ public class PlantationUIController : MonoBehaviour
         Debug.Log("HideReload");
         reloadObj.SetActive(false);
         StopCoroutine(fillCoroutine);
+    }
+
+    public void ShowPressE()
+    {
+        pressEObj.SetActive(true);
+    }
+
+    public void HidePressE()
+    {
+        pressEObj.SetActive(false);
     }
 
 

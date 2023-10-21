@@ -48,6 +48,7 @@ public class Player : Singleton<Player>
         {
             plantationUIController.Populate(seeds);
             plantationUIController.ShowPlantButtons();
+            plantationUIController.HidePressE();
             Pause();
         }
     }
@@ -58,6 +59,11 @@ public class Player : Singleton<Player>
         {
             onPlantationArea = true;
             currentPlantationArea = col.gameObject.GetComponent<PlantationController>();
+            
+            if(!currentPlantationArea.planted) {
+                plantationUIController.ShowPressE();
+            }
+            
             Debug.Log($"isPlanted: {currentPlantationArea.planted}; Refilling: {refilling}");
             if (
                 currentPlantationArea.planted && !refilling && 
@@ -76,6 +82,7 @@ public class Player : Singleton<Player>
         {
             onPlantationArea = false;
             currentPlantationArea = null;
+            plantationUIController.HidePressE();
             plantationUIController.HidePlantButtons();
             UnPause();
             if(refilling)
@@ -86,8 +93,8 @@ public class Player : Singleton<Player>
     void ResetCurrentFullfillTimer()
     {
         StopCoroutine(refillCoroutine);
-        refilling = false;
         plantationUIController.HideReload();
+        refilling = false;
         Debug.Log("Stop refill in middle");
     }
 
