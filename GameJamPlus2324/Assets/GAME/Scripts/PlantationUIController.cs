@@ -18,6 +18,18 @@ public class PlantationUIController : MonoBehaviour
     public TextMeshProUGUI grapeText;
     public TextMeshProUGUI strawberryText;
 
+    public GameObject reloadObj;
+    public Image reloadFill;
+    public IEnumerator fillCoroutine;
+
+    public GameObject pressEObj;
+
+    private void Start()
+    {
+        reloadObj.SetActive(false);
+        pressEObj.SetActive(false);
+    }
+
     private void TogglePos(string pos)
     {
         Tweener t = panel.SetPosition(pos, true);
@@ -52,12 +64,47 @@ public class PlantationUIController : MonoBehaviour
         }
     }
 
-    public void Show()
+    public void ShowReload(float reloadTime)
+    {
+        reloadObj.SetActive(true);
+        fillCoroutine = FillReloadImage(reloadTime);
+        reloadFill.fillAmount = 0;
+        StartCoroutine(fillCoroutine);
+    }
+
+    public void HideReload()
+    {
+        Debug.Log("HideReload");
+        reloadObj.SetActive(false);
+        StopCoroutine(fillCoroutine);
+    }
+
+    public void ShowPressE()
+    {
+        pressEObj.SetActive(true);
+    }
+
+    public void HidePressE()
+    {
+        pressEObj.SetActive(false);
+    }
+
+
+    private IEnumerator FillReloadImage(float reloadTime)
+    {
+        while(reloadFill.fillAmount <= 1)
+        {
+            reloadFill.fillAmount += 1.0f / reloadTime * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void ShowPlantButtons()
     {
         TogglePos(ShowKey);
     }
 
-    public void Hide()
+    public void HidePlantButtons()
     {
         TogglePos(HideKey);
     }

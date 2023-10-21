@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class ShootManager : MonoBehaviour
 {
     [Header("Weapons")] [SerializeField] List<WeaponSO> weaponSos = new List<WeaponSO>();
     [SerializeField] private List<int> weaponCurrentAmountOfAmmo = new List<int>();
-    private WeaponSO _selectedWeaponType;
+    public WeaponSO _selectedWeaponType;
 
     private bool canShot = true;
     const string GrapeBulletPoolKey = "GrapeBullet";
@@ -19,9 +18,15 @@ public class ShootManager : MonoBehaviour
 
     private float timeFromLastShot = 0f;
 
-    private void Start()
+    [SerializeField] private WeaponSelectionBarUI _weaponSelectionBarUI;
+
+    private void Awake()
     {
         _selectedWeaponType = weaponSos[0];
+    }
+
+    private void Start()
+    {
         GameObjectPoolController.AddEntry(GrapeBulletPoolKey, weaponSos[0].GetBulletPrefab(), 3, 15);
         GameObjectPoolController.AddEntry(AvocadoBulletPoolKey, weaponSos[1].GetBulletPrefab(), 3, 15);
         GameObjectPoolController.AddEntry(StrawberryBulletPoolKey, weaponSos[2].GetBulletPrefab(), 3, 15);
@@ -57,6 +62,7 @@ public class ShootManager : MonoBehaviour
     public void SwapWeapon(int swapedWeapon)
     {
         _selectedWeaponType = weaponSos[swapedWeapon];
+        _weaponSelectionBarUI.SelectTheWeapon(_selectedWeaponType.GetWeaponType());
     }
 
     void Shoot(WeaponSO weaponS0)
@@ -144,9 +150,7 @@ public class ShootManager : MonoBehaviour
     }
 
     public void FullfillAmmo(EarthTreeType treeType)
-    {
-        if(treeType != _selectedWeaponType.GetWeaponType()) return;
-        
+    {       
         weaponCurrentAmountOfAmmo[GetWeaponIndexByTreeType(treeType)] =
             weaponSos[GetWeaponIndexByTreeType(treeType)].GetMaxAmountOfAmmo();
 

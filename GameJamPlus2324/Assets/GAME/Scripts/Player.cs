@@ -50,7 +50,8 @@ public class Player : Singleton<Player>
         if (Input.GetKeyDown(KeyCode.E) && onPlantationArea)
         {
             plantationUIController.Populate(seeds);
-            plantationUIController.Show();
+            plantationUIController.ShowPlantButtons();
+            plantationUIController.HidePressE();
             Pause();
         }
 
@@ -67,10 +68,18 @@ public class Player : Singleton<Player>
         {
             onPlantationArea = true;
             currentPlantationArea = col.gameObject.GetComponent<PlantationController>();
+            
+            if(!currentPlantationArea.planted) {
+                plantationUIController.ShowPressE();
+            }
+            
             Debug.Log($"isPlanted: {currentPlantationArea.planted}; Refilling: {refilling}");
-            if (currentPlantationArea.planted && !refilling)
-            {
+            if (
+                currentPlantationArea.planted && !refilling && 
+                shootManager._selectedWeaponType.GetWeaponType() == currentPlantationArea.plantedTree
+            ) {
                 refillCoroutine = RefillAmmo();
+                plantationUIController.ShowReload(timeToFullfill);
                 StartCoroutine(refillCoroutine);
             }
         }
@@ -89,7 +98,8 @@ public class Player : Singleton<Player>
         {
             onPlantationArea = false;
             currentPlantationArea = null;
-            plantationUIController.Hide();
+            plantationUIController.HidePressE();
+            plantationUIController.HidePlantButtons();
             UnPause();
             if(refilling)
                 ResetCurrentFullfillTimer();
@@ -105,6 +115,7 @@ public class Player : Singleton<Player>
     void ResetCurrentFullfillTimer()
     {
         StopCoroutine(refillCoroutine);
+        plantationUIController.HideReload();
         refilling = false;
         Debug.Log("Stop refill in middle");
     }
@@ -118,6 +129,7 @@ public class Player : Singleton<Player>
         Debug.Log($"planted Tree: {currentPlantationArea.plantedTree}");
         shootManager.FullfillAmmo(currentPlantationArea.plantedTree);
         refilling = false;
+        plantationUIController.HideReload();
         Debug.Log("Refilled");
     }
 
@@ -127,7 +139,7 @@ public class Player : Singleton<Player>
         if (ret == 0)
         {
             seeds[earthTreeType] -= 1;
-            plantationUIController.Hide();
+            plantationUIController.HidePlantButtons();
             UnPause();
         }
     }
