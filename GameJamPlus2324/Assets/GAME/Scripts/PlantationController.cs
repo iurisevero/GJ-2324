@@ -18,12 +18,12 @@ public class PlantationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void Plant(EarthTreeType earthTreeType)
     {
-        if(!planted) {    
+        if (!planted)
+        {
             plantedTree = earthTreeType;
             plantedTreeObj = Instantiate(GetEarthTreePrefabs(earthTreeType));
             Transform plantedTreeTransform = plantedTreeObj.transform;
@@ -35,13 +35,19 @@ public class PlantationController : MonoBehaviour
         }
     }
 
-    private GameObject GetEarthTreePrefabs(EarthTreeType earthTreeType) 
+    private GameObject GetEarthTreePrefabs(EarthTreeType earthTreeType)
     {
         foreach (var earthTreePair in earthTreePrefabs)
         {
-            if(earthTreePair.earthTreeType == earthTreeType)
-                return earthTreePair.earthTreePrefab;   
+            if (earthTreePair.earthTreeType == earthTreeType)
+                return earthTreePair.earthTreePrefab;
         }
+
         return earthTreePrefabs[0].earthTreePrefab;
+    }
+
+    public EarthTreeType GetTreeType()
+    {
+        return plantedTree;
     }
 }

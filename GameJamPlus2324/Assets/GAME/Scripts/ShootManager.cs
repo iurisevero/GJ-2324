@@ -16,6 +16,8 @@ public class ShootManager : MonoBehaviour
 
     [Header("Bullet")] private float timeToBulletDisappear = 1.25f;
 
+    private float timeFromLastShot = 0f;
+
     private void Start()
     {
         _selectedWeaponType = weaponSos[0];
@@ -27,7 +29,16 @@ public class ShootManager : MonoBehaviour
 
     void Update()
     {
-        if (!canShot) return;
+        if (!canShot)
+        {
+            timeFromLastShot += Time.deltaTime;
+            if (timeFromLastShot > _selectedWeaponType.GetCadence())
+            {
+                canShot = true;
+            }
+
+            return;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -42,24 +53,29 @@ public class ShootManager : MonoBehaviour
 
     void Shoot(WeaponSO weaponS0)
     {
-        WeaponType weaponType = weaponS0.GetWeaponType();
+        if (!weaponS0.HasAmmo()) return;
+
+        EarthTreeType weaponType = weaponS0.GetWeaponType();
         switch (weaponType)
         {
-            case WeaponType.Grape:
+            case EarthTreeType.Grape:
                 Shoot(GrapeBulletPoolKey);
                 break;
-            case WeaponType.Avocado:
+            case EarthTreeType.Avocado:
                 Shoot(AvocadoBulletPoolKey);
                 break;
-            case WeaponType.Strawberry:
+            case EarthTreeType.Strawberry:
                 Shoot(StrawberryBulletPoolKey);
                 break;
-            case WeaponType.Banana:
+            case EarthTreeType.Banana:
                 Shoot(BananaBulletPoolKey);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
         }
+
+        canShot = false;
+        timeFromLastShot = 0f;
     }
 
     #region ObjectPooling
@@ -67,6 +83,8 @@ public class ShootManager : MonoBehaviour
     // Dequeue
     private void Shoot(string poolKey)
     {
+        _selectedWeaponType.RemoveAmmo();
+
         Poolable p = GameObjectPoolController.Dequeue(poolKey);
         BulletController bulletController = p.GetComponent<BulletController>();
         bulletController.transform.position = transform.position;

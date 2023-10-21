@@ -1,6 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Player : Singleton<Player>
 {
@@ -8,6 +9,9 @@ public class Player : Singleton<Player>
     Dictionary<EarthTreeType, int> seeds;
     bool onPlantationArea = false;
     PlantationController currentPlantationArea;
+
+    public Action<EarthTreeType> onPlayerEnteredPlantationArea;
+    public Action<EarthTreeType> onPlayerExitedPlantationArea;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +22,8 @@ public class Player : Singleton<Player>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && onPlantationArea) {
+        if (Input.GetKeyDown(KeyCode.E) && onPlantationArea)
+        {
             EarthTreeType randonEarthTreeType;
             switch (Random.Range(0, 3))
             {
@@ -32,18 +37,32 @@ public class Player : Singleton<Player>
                     randonEarthTreeType = EarthTreeType.Grape;
                     break;
                 default:
-                    randonEarthTreeType = EarthTreeType.Straweberry;
+                    randonEarthTreeType = EarthTreeType.Strawberry;
                     break;
             }
+
             currentPlantationArea.Plant(randonEarthTreeType);
         }
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.CompareTag(PlantationAreaTag)) {
+        if (col.CompareTag(PlantationAreaTag))
+        {
             onPlantationArea = true;
             currentPlantationArea = col.gameObject.GetComponent<PlantationController>();
+            onPlayerEnteredPlantationArea?.Invoke(currentPlantationArea.GetTreeType());
+        }
+    }
+
+
+    void OnTriggerExit(Collider col)
+    {
+        if (col.CompareTag(PlantationAreaTag))
+        {
+            onPlantationArea = true;
+            currentPlantationArea = col.gameObject.GetComponent<PlantationController>();
+            onPlayerExitedPlantationArea?.Invoke(currentPlantationArea.GetTreeType());
         }
     }
 }
