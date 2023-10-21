@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum EarthTreeType
 {
-    Avocado,
-    Banana,
     Grape,
-    Straweberry
+    Avocado,
+    Strawberry,
+    Banana
 }
