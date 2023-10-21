@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3478093998142253083}
+  - component: {fileID: 455102663766079412}
   - component: {fileID: 3478093998142253082}
   - component: {fileID: 3478093998142253085}
   - component: {fileID: 3478093998142253084}
   - component: {fileID: 2581401153743411576}
-  - component: {fileID: 7427017428161766475}
   m_Layer: 8
   m_Name: AvocadoBullet
   m_TagString: Untagged
@@ -36,6 +36,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &455102663766079412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478093998142253087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae8ed9ac8fd3c0d4289b1ecd26274857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 2581401153743411576}
+  bulletSpeed: 10
+  timeToBulletDisappear: 1.25
+  dir: {x: 0, y: 0, z: 0}
 --- !u!33 &3478093998142253082
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -115,17 +131,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &7427017428161766475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3478093998142253087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f486bd2aaf5111d4e9b60f74e91cafac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 2581401153743411576}
-  bulletSpeed: 10
