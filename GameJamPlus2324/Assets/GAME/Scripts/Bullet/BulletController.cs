@@ -1,19 +1,26 @@
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public abstract class BulletController : MonoBehaviour
 {
-    [SerializeField] Rigidbody rb;
-    [SerializeField] float bulletSpeed = 10f;
-    public Vector3 dir;
+    [SerializeField] protected Rigidbody rb;
+    [SerializeField] protected float bulletSpeed = 10f;
+    [SerializeField] protected float timeToBulletDisappear = 1.25f;
+    // public Vector3 dir;
 
-    private void Update()
+    public virtual void Update()
     {
-        rb.AddForce(dir * bulletSpeed, ForceMode.Impulse);
+        rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
     }
 
-    private void OnEnable()
+    public virtual void OnEnable()
     {
         rb.velocity = Vector3.zero;
+        Invoke("Enqueue", timeToBulletDisappear);
     }
 
+    public virtual void Enqueue()
+    {
+        Poolable p = gameObject.GetComponent<Poolable>();
+        GameObjectPoolController.Enqueue(p);
+    }
 }

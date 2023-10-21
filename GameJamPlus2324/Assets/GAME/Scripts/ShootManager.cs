@@ -49,7 +49,7 @@ public class ShootManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             Shoot(_selectedWeaponType);
         }
@@ -139,18 +139,9 @@ public class ShootManager : MonoBehaviour
         Poolable p = GameObjectPoolController.Dequeue(poolKey);
         BulletController bulletController = p.GetComponent<BulletController>();
         bulletController.transform.position = bulletSpawnPosition.position;
-        bulletController.dir = bulletSpawnPosition.forward;
+        bulletController.transform.forward = bulletSpawnPosition.forward;
         bulletController.transform.localScale = Vector3.one;
         bulletController.gameObject.SetActive(true);
-
-        StartCoroutine(Enqueue(p.gameObject));
-    }
-
-    private IEnumerator Enqueue(GameObject bulletObject)
-    {
-        yield return new WaitForSeconds(timeToBulletDisappear);
-        Poolable p = bulletObject.GetComponent<Poolable>();
-        GameObjectPoolController.Enqueue(p);
     }
 
     public void FullfillAmmo(EarthTreeType treeType)
