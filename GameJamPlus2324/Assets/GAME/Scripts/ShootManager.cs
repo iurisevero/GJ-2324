@@ -124,6 +124,7 @@ public class ShootManager : MonoBehaviour
         Poolable p = GameObjectPoolController.Dequeue(poolKey);
         BulletController bulletController = p.GetComponent<BulletController>();
         bulletController.transform.position = bulletSpawnPosition.position;
+        bulletController.dir = bulletSpawnPosition.forward;
         bulletController.transform.localScale = Vector3.one;
         bulletController.gameObject.SetActive(true);
 
