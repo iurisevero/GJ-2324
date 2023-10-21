@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : Singleton<Player>
 {
     const string PlantationAreaTag = "PlantationArea";
-    const string SeedAreaTag = "SeedArea";
+    const string SeedAreaTag = "Seed";
 
     public PlantationUIController plantationUIController;
     public static bool paused;
@@ -33,13 +33,13 @@ public class Player : Singleton<Player>
         plantationUIController.grapeButton.onClick.AddListener(() => Plant(EarthTreeType.Grape));
         plantationUIController.strawberryButton.onClick.AddListener(() => Plant(EarthTreeType.Strawberry));
         onPlantationArea = false;
-        // seeds = new Dictionary<EarthTreeType, int>()
-        // {
-        //     { EarthTreeType.Avocado, 2 },
-        //     { EarthTreeType.Banana, 1 },
-        //     { EarthTreeType.Grape, 1 },
-        //     { EarthTreeType.Strawberry, 3 },
-        // };
+        seeds = new Dictionary<EarthTreeType, int>()
+        {
+            { EarthTreeType.Avocado, 0 },
+            { EarthTreeType.Banana, 0 },
+            { EarthTreeType.Grape, 0 },
+            { EarthTreeType.Strawberry, 0 },
+        };
     }
 
     // Update is called once per frame
