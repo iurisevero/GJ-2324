@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,10 +10,18 @@ public class SpawnerController : MonoBehaviour
     [SerializeField] private float maxRadius = 5f;
 
     [SerializeField] private float spawnTime = 2f;
+    const string GrapeEnemyPoolKey = "GrapeEnemy";
+    const string AvocadoEnemyPoolKey = "AvocadoEnemy";
+    const string StrawberryEnemyPoolKey = "StrawberryEnemy";
+    const string BananaEnemyPoolKey = "BananaEnemy";
 
     void Start()
     {
-        // transform.position = Random.insideUnitSphere * 5;
+        GameObjectPoolController.AddEntry(GrapeEnemyPoolKey, enemies[0], 3, 15);
+        GameObjectPoolController.AddEntry(AvocadoEnemyPoolKey, enemies[1], 3, 15);
+        GameObjectPoolController.AddEntry(StrawberryEnemyPoolKey, enemies[2], 3, 15);
+        GameObjectPoolController.AddEntry(BananaEnemyPoolKey, enemies[3], 3, 15);
+
         InvokeRepeating(nameof(SpawnEnemy), 0, spawnTime);
     }
 
@@ -21,7 +30,6 @@ public class SpawnerController : MonoBehaviour
         int randomEnemyType = Random.Range(0, enemies.Count);
         Vector3 targetPos = Random.insideUnitSphere * maxRadius;
         targetPos.y = 0;
-        //targetPos.x = Mathf.Max(minRadius, Mathf.Abs(targetPos.x));
 
         if (targetPos.z < 0)
             targetPos.z = Mathf.Min(maxRadius, Mathf.Abs(targetPos.z)) * -1;
@@ -33,10 +41,28 @@ public class SpawnerController : MonoBehaviour
         else
             targetPos.x = Mathf.Max(minRadius, Mathf.Abs(targetPos.x));
 
+        string poolKey;
+        if (randomEnemyType == 0)
+        {
+            poolKey = GrapeEnemyPoolKey;
+        }
+        else if (randomEnemyType == 1)
+        {
+            poolKey = AvocadoEnemyPoolKey;
+        }
+        else if (randomEnemyType == 2)
+        {
+            poolKey = StrawberryEnemyPoolKey;
+        }
+        else
+        {
+            poolKey = BananaEnemyPoolKey;
+        }
 
-        Debug.Log(targetPos);
-
-        Instantiate(enemies[randomEnemyType], targetPos, Quaternion.identity);
+        // Instantiate(enemies[randomEnemyType], targetPos, Quaternion.identity);
+        Poolable p = GameObjectPoolController.Dequeue(poolKey);
+        p.gameObject.transform.position = targetPos;
+        p.gameObject.transform.rotation = quaternion.identity;
     }
 
     private void OnDrawGizmos()

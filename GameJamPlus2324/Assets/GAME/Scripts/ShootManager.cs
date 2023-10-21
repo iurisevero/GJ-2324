@@ -15,7 +15,6 @@ public class ShootManager : MonoBehaviour
     const string StrawberryBulletPoolKey = "StrawberryBullet";
     const string BananaBulletPoolKey = "BananaBullet";
 
-    [Header("Bullet")] private float timeToBulletDisappear = 1.25f;
     [SerializeField] private Transform bulletSpawnPosition;
 
     private float timeFromLastShot = 0f;

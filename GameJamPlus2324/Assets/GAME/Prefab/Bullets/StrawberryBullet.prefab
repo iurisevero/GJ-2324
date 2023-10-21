@@ -51,7 +51,7 @@ MonoBehaviour:
   rb: {fileID: 2581401153743411576}
   bulletSpeed: 10
   timeToBulletDisappear: 1.25
-  dir: {x: 0, y: 0, z: 0}
+  bulletDamage: 10
 --- !u!33 &3478093998142253082
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -110,7 +110,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3478093998142253087}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

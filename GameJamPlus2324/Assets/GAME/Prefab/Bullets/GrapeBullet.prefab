@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6105323487213434908}
   - component: {fileID: 2023542727514476970}
   - component: {fileID: 5791531546589174817}
+  - component: {fileID: 9220602526208912413}
   m_Layer: 8
   m_Name: Bullet1
   m_TagString: Untagged
@@ -114,6 +115,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &9220602526208912413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106898733450183324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2d02b441f913743a65a0c36e714e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grapeBullet: {fileID: 2727903188266252823}
 --- !u!1 &3478093998142253087
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   bulletSpeed: 10
-  timeToBulletDisappear: 0.625
+  timeToBulletDisappear: 3
+  bulletDamage: 10
   bullet1Rigidbody: {fileID: 5791531546589174817}
   bullet2Rigidbody: {fileID: 1325333276185646235}
   bullet3Rigidbody: {fileID: 3936480674815574844}
@@ -180,6 +195,7 @@ GameObject:
   - component: {fileID: 119921780004837364}
   - component: {fileID: 6054253243802142002}
   - component: {fileID: 3936480674815574844}
+  - component: {fileID: 8936675026081110415}
   m_Layer: 8
   m_Name: Bullet3
   m_TagString: Untagged
@@ -281,6 +297,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &8936675026081110415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3612644916083114238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2d02b441f913743a65a0c36e714e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grapeBullet: {fileID: 2727903188266252823}
 --- !u!1 &4867632539269562294
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +323,7 @@ GameObject:
   - component: {fileID: 7068414651273601899}
   - component: {fileID: 7937415854580724873}
   - component: {fileID: 1325333276185646235}
+  - component: {fileID: 7925535467497638636}
   m_Layer: 8
   m_Name: Bullet2
   m_TagString: Untagged
@@ -395,3 +425,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &7925535467497638636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4867632539269562294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc2d02b441f913743a65a0c36e714e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grapeBullet: {fileID: 2727903188266252823}

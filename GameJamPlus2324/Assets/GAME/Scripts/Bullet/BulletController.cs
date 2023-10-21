@@ -5,7 +5,7 @@ public abstract class BulletController : MonoBehaviour
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected float bulletSpeed = 10f;
     [SerializeField] protected float timeToBulletDisappear = 1.25f;
-    // public Vector3 dir;
+    public int bulletDamage = 10;
 
     public virtual void Update()
     {
@@ -22,5 +22,12 @@ public abstract class BulletController : MonoBehaviour
     {
         Poolable p = gameObject.GetComponent<Poolable>();
         GameObjectPoolController.Enqueue(p);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Health otherHealth = other.GetComponent<Health>();
+        if (otherHealth is null) return;
+        otherHealth.TakeDamage(bulletDamage);
     }
 }
