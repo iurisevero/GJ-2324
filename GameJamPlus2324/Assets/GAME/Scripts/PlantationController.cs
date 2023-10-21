@@ -22,7 +22,7 @@ public class PlantationController : MonoBehaviour
         
     }
 
-    public void Plant(EarthTreeType earthTreeType)
+    public int Plant(EarthTreeType earthTreeType)
     {
         if(!planted) {    
             plantedTree = earthTreeType;
@@ -38,7 +38,9 @@ public class PlantationController : MonoBehaviour
             glowMain.startColor = GetEarthTreeColor(earthTreeType);
             glow.Clear();
             glow.Play();
+            return 0;
         }
+        return -1;
     }
 
     private GameObject GetEarthTreePrefab(EarthTreeType earthTreeType) 

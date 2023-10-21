@@ -28,6 +28,7 @@ public class ShootManager : MonoBehaviour
     void Update()
     {
         if (!canShot) return;
+        if(Player.paused) return;
 
         if (Input.GetMouseButtonDown(0))
         {
