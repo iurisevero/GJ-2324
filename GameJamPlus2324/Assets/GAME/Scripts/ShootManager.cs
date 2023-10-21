@@ -36,6 +36,8 @@ public class ShootManager : MonoBehaviour
 
     void Update()
     {
+        if (Player.paused) return;
+        
         if (!canShot)
         {
             timeFromLastShot += Time.deltaTime;
@@ -103,8 +105,21 @@ public class ShootManager : MonoBehaviour
         return 0;
     }
 
+    int GetWeaponIndexByTreeType(EarthTreeType typeSearched)
+    {
+        for (int i = 0; i < weaponSos.Count; i++)
+        {
+            if (weaponSos[i].GetWeaponType() == typeSearched)
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     #region Ammo
-    
+
     void RemoveAmmo()
     {
         weaponCurrentAmountOfAmmo[GetWeaponIndex()] =
@@ -136,6 +151,16 @@ public class ShootManager : MonoBehaviour
         yield return new WaitForSeconds(timeToBulletDisappear);
         Poolable p = bulletObject.GetComponent<Poolable>();
         GameObjectPoolController.Enqueue(p);
+    }
+
+    public void FullfillAmmo(EarthTreeType treeType)
+    {
+        if(treeType != _selectedWeaponType.GetWeaponType()) return;
+        
+        weaponCurrentAmountOfAmmo[GetWeaponIndexByTreeType(treeType)] =
+            weaponSos[GetWeaponIndexByTreeType(treeType)].GetMaxAmountOfAmmo();
+
+        Debug.Log("Fullfill");
     }
 
     #endregion

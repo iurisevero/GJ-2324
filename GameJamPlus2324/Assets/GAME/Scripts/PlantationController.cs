@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlantationController : MonoBehaviour
 {
     public PairEarthTreeTypePrefab[] earthTreePrefabs;
     public ParticleSystem glow;
-    EarthTreeType plantedTree;
+    [HideInInspector] public EarthTreeType plantedTree;
     GameObject plantedTreeObj;
-    bool planted;
+    public bool planted;
 
     // Start is called before the first frame update
     void Start()
@@ -16,15 +14,10 @@ public class PlantationController : MonoBehaviour
         planted = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public int Plant(EarthTreeType earthTreeType)
     {
-        if(!planted) {    
+        if (!planted)
+        {
             plantedTree = earthTreeType;
             plantedTreeObj = Instantiate(GetEarthTreePrefab(earthTreeType));
             Transform plantedTreeTransform = plantedTreeObj.transform;
@@ -40,26 +33,30 @@ public class PlantationController : MonoBehaviour
             glow.Play();
             return 0;
         }
+
         return -1;
     }
 
-    private GameObject GetEarthTreePrefab(EarthTreeType earthTreeType) 
+    private GameObject GetEarthTreePrefab(EarthTreeType earthTreeType)
     {
         foreach (var earthTreePair in earthTreePrefabs)
         {
-            if(earthTreePair.earthTreeType == earthTreeType)
-                return earthTreePair.earthTreePrefab;   
+            if (earthTreePair.earthTreeType == earthTreeType)
+                return earthTreePair.earthTreePrefab;
         }
+
         return earthTreePrefabs[0].earthTreePrefab;
     }
 
-    private Color GetEarthTreeColor(EarthTreeType earthTreeType) 
+    private Color GetEarthTreeColor(EarthTreeType earthTreeType)
     {
         foreach (var earthTreePair in earthTreePrefabs)
         {
-            if(earthTreePair.earthTreeType == earthTreeType)
-                return earthTreePair.earthTreeColor;   
+            if (earthTreePair.earthTreeType == earthTreeType)
+                return earthTreePair.earthTreeColor;
         }
+
         return earthTreePrefabs[0].earthTreeColor;
     }
+    
 }
