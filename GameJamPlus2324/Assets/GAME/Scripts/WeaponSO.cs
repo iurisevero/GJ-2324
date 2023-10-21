@@ -7,15 +7,9 @@ public class WeaponSO : ScriptableObject
 
     [SerializeField] private EarthTreeType weaponType;
     [SerializeField] private int maxAmountOfAmmo = 10;
-    [SerializeField] private int currentAmountOfAmmo = 10;
     [SerializeField] private int amountOfAmmoToRemoveInEachShot = 1;
-
     [SerializeField] private float cadence = 1f;
 
-    public bool HasAmmo()
-    {
-        return currentAmountOfAmmo > 0;
-    }
 
     public EarthTreeType GetWeaponType()
     {
@@ -32,14 +26,13 @@ public class WeaponSO : ScriptableObject
         return cadence;
     }
 
-    public void RemoveAmmo()
+    public int GetAmountOfAmmoToRemoveInEachShot()
     {
-        currentAmountOfAmmo -= amountOfAmmoToRemoveInEachShot;
-        currentAmountOfAmmo = Mathf.Max(0, currentAmountOfAmmo);
+        return amountOfAmmoToRemoveInEachShot;
     }
 
-    public void FullfillAmmo()
+    public int GetMaxAmountOfAmmo()
     {
-        currentAmountOfAmmo = maxAmountOfAmmo;
+        return maxAmountOfAmmo;
     }
 }

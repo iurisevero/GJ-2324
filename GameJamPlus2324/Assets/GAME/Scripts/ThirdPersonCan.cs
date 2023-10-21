@@ -13,12 +13,14 @@ public class ThirdPersonCan : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.lockState = CursorLockMode.Locked;
         // Cursor.visible = false;
     }
 
     private void Update()
     {
+        if(Player.paused) return;
+
         // rotate orientation
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;

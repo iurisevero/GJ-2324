@@ -16,6 +16,5 @@ MonoBehaviour:
     type: 3}
   weaponType: 1
   maxAmountOfAmmo: 10
-  currentAmountOfAmmo: 10
   amountOfAmmoToRemoveInEachShot: 1
   cadence: 0.15

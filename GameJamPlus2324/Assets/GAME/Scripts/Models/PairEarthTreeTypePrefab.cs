@@ -8,4 +8,5 @@ public class PairEarthTreeTypePrefab
 {
     public EarthTreeType earthTreeType;
     public GameObject earthTreePrefab;
+    public Color earthTreeColor;
 }

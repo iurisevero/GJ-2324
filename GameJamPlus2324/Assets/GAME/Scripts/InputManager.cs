@@ -23,6 +23,8 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Player.paused) return;
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         SpeedControl();
@@ -30,6 +32,8 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(Player.paused) return;
+
         MovePlayer();
     }
 

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ShootManager : MonoBehaviour
 {
-    [Header("Weapons")] [SerializeField] List<WeaponSO> weaponSos;
+    [Header("Weapons")] [SerializeField] List<WeaponSO> weaponSos = new List<WeaponSO>();
+    [SerializeField] private List<int> weaponCurrentAmountOfAmmo = new List<int>();
     private WeaponSO _selectedWeaponType;
 
     private bool canShot = true;
@@ -25,6 +26,11 @@ public class ShootManager : MonoBehaviour
         GameObjectPoolController.AddEntry(AvocadoBulletPoolKey, weaponSos[1].GetBulletPrefab(), 3, 15);
         GameObjectPoolController.AddEntry(StrawberryBulletPoolKey, weaponSos[2].GetBulletPrefab(), 3, 15);
         GameObjectPoolController.AddEntry(BananaBulletPoolKey, weaponSos[3].GetBulletPrefab(), 3, 15);
+
+        foreach (var weapon in weaponSos)
+        {
+            weaponCurrentAmountOfAmmo.Add(weapon.GetMaxAmountOfAmmo());
+        }
     }
 
     void Update()
@@ -53,7 +59,7 @@ public class ShootManager : MonoBehaviour
 
     void Shoot(WeaponSO weaponS0)
     {
-        if (!weaponS0.HasAmmo()) return;
+        if (!HasAmmo()) return;
 
         EarthTreeType weaponType = weaponS0.GetWeaponType();
         switch (weaponType)
@@ -78,12 +84,48 @@ public class ShootManager : MonoBehaviour
         timeFromLastShot = 0f;
     }
 
+    bool HasAmmo()
+    {
+        return weaponCurrentAmountOfAmmo[GetWeaponIndex()] > 0;
+    }
+
+    int GetWeaponIndex()
+    {
+        for (int i = 0; i < weaponSos.Count; i++)
+        {
+            if (weaponSos[i].GetWeaponType() == _selectedWeaponType.GetWeaponType())
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    #region Ammo
+
+    [SerializeField] private int currentAmountOfAmmo = 10;
+
+    void RemoveAmmo()
+    {
+        weaponCurrentAmountOfAmmo[GetWeaponIndex()] =
+            weaponCurrentAmountOfAmmo[GetWeaponIndex()] - _selectedWeaponType.GetAmountOfAmmoToRemoveInEachShot();
+        weaponCurrentAmountOfAmmo[GetWeaponIndex()] = Mathf.Max(0, weaponCurrentAmountOfAmmo[GetWeaponIndex()]);
+    }
+
+    public void FullfillAmmo()
+    {
+        currentAmountOfAmmo = _selectedWeaponType.GetMaxAmountOfAmmo();
+    }
+
+    #endregion
+
     #region ObjectPooling
 
     // Dequeue
     private void Shoot(string poolKey)
     {
-        _selectedWeaponType.RemoveAmmo();
+        RemoveAmmo();
 
         Poolable p = GameObjectPoolController.Dequeue(poolKey);
         BulletController bulletController = p.GetComponent<BulletController>();
