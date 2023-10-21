@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlantationArea
+  - Seed
+  - SeedSpawner
   layers:
   - Default
   - TransparentFX

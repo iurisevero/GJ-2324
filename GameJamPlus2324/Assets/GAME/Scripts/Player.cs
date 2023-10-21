@@ -7,12 +7,15 @@ using UnityEngine;
 public class Player : Singleton<Player>
 {
     const string PlantationAreaTag = "PlantationArea";
+    const string SeedAreaTag = "Seed";
 
     public PlantationUIController plantationUIController;
     public static bool paused;
     Dictionary<EarthTreeType, int> seeds;
     bool onPlantationArea = false;
+    bool onSeedArea = false;
     PlantationController currentPlantationArea;
+    SeedController currentSeedArea;
     private IEnumerator refillCoroutine;
     private bool refilling;
     [SerializeField] ShootManager shootManager;
@@ -32,10 +35,10 @@ public class Player : Singleton<Player>
         onPlantationArea = false;
         seeds = new Dictionary<EarthTreeType, int>()
         {
-            { EarthTreeType.Avocado, 2 },
-            { EarthTreeType.Banana, 1 },
-            { EarthTreeType.Grape, 1 },
-            { EarthTreeType.Strawberry, 3 },
+            { EarthTreeType.Avocado, 0 },
+            { EarthTreeType.Banana, 0 },
+            { EarthTreeType.Grape, 0 },
+            { EarthTreeType.Strawberry, 0 },
         };
     }
 
@@ -50,6 +53,12 @@ public class Player : Singleton<Player>
             plantationUIController.ShowPlantButtons();
             plantationUIController.HidePressE();
             Pause();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && onSeedArea)
+        {
+            seeds[currentSeedArea.earthTreeSeedType]++;
+            GameObjectPoolController.Enqueue(currentSeedArea.GetComponent<Poolable>());
         }
     }
 
@@ -74,6 +83,13 @@ public class Player : Singleton<Player>
                 StartCoroutine(refillCoroutine);
             }
         }
+
+        if (col.CompareTag(SeedAreaTag))
+        {
+            onSeedArea = true;
+            currentSeedArea = col.gameObject.GetComponent<SeedController>();
+            Debug.Log($"isSeed: {currentSeedArea.earthTreeSeedType};");
+        }
     }
 
     void OnTriggerExit(Collider col)
@@ -87,6 +103,12 @@ public class Player : Singleton<Player>
             UnPause();
             if(refilling)
                 ResetCurrentFullfillTimer();
+        }
+
+        if (col.CompareTag(SeedAreaTag))
+        {
+            onSeedArea = false;
+            currentSeedArea = null;
         }
     }
 
