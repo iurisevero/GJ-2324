@@ -7,7 +7,7 @@ public class ShootManager : MonoBehaviour
 {
     [Header("Weapons")] [SerializeField] List<WeaponSO> weaponSos = new List<WeaponSO>();
     [SerializeField] private List<int> weaponCurrentAmountOfAmmo = new List<int>();
-    private WeaponSO _selectedWeaponType;
+    public WeaponSO _selectedWeaponType;
 
     private bool canShot = true;
     const string GrapeBulletPoolKey = "GrapeBullet";
@@ -144,9 +144,7 @@ public class ShootManager : MonoBehaviour
     }
 
     public void FullfillAmmo(EarthTreeType treeType)
-    {
-        if(treeType != _selectedWeaponType.GetWeaponType()) return;
-        
+    {       
         weaponCurrentAmountOfAmmo[GetWeaponIndexByTreeType(treeType)] =
             weaponSos[GetWeaponIndexByTreeType(treeType)].GetMaxAmountOfAmmo();
 
