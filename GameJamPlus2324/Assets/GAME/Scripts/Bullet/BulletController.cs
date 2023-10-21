@@ -4,10 +4,11 @@ public class BulletController : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] float bulletSpeed = 10f;
+    public Vector3 dir;
 
     private void Update()
     {
-        rb.AddForce(new Vector3(0, 0, bulletSpeed), ForceMode.Impulse);
+        rb.AddForce(dir * bulletSpeed, ForceMode.Impulse);
     }
 
     private void OnEnable()

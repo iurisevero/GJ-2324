@@ -16,6 +16,7 @@ public class ShootManager : MonoBehaviour
     const string BananaBulletPoolKey = "BananaBullet";
 
     [Header("Bullet")] private float timeToBulletDisappear = 1.25f;
+    [SerializeField] private Transform bulletSpawnPosition;
 
     private float timeFromLastShot = 0f;
 
@@ -103,19 +104,12 @@ public class ShootManager : MonoBehaviour
     }
 
     #region Ammo
-
-    [SerializeField] private int currentAmountOfAmmo = 10;
-
+    
     void RemoveAmmo()
     {
         weaponCurrentAmountOfAmmo[GetWeaponIndex()] =
             weaponCurrentAmountOfAmmo[GetWeaponIndex()] - _selectedWeaponType.GetAmountOfAmmoToRemoveInEachShot();
         weaponCurrentAmountOfAmmo[GetWeaponIndex()] = Mathf.Max(0, weaponCurrentAmountOfAmmo[GetWeaponIndex()]);
-    }
-
-    public void FullfillAmmo()
-    {
-        currentAmountOfAmmo = _selectedWeaponType.GetMaxAmountOfAmmo();
     }
 
     #endregion
@@ -129,7 +123,7 @@ public class ShootManager : MonoBehaviour
 
         Poolable p = GameObjectPoolController.Dequeue(poolKey);
         BulletController bulletController = p.GetComponent<BulletController>();
-        bulletController.transform.position = transform.position;
+        bulletController.transform.position = bulletSpawnPosition.position;
         bulletController.transform.localScale = Vector3.one;
         bulletController.gameObject.SetActive(true);
 
