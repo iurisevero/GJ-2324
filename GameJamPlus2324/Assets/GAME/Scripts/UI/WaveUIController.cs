@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +10,7 @@ public class WaveUIController : MonoBehaviour
     public Image instaStartButtonImg;
     public TextMeshProUGUI timer;
     int totalMonsters;
-    
+
     public void SetWaveText(int wave)
     {
         waveText.text = wave.ToString();
@@ -31,6 +29,7 @@ public class WaveUIController : MonoBehaviour
 
     public void UpdateTime(float time)
     {
+        time = Mathf.Max(time, 0);
         timer.text = time.ToString("0.00") + " s";
     }
 

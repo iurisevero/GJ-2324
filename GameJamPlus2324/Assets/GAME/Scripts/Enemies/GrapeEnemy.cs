@@ -1,30 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class GrapeEnemy : EnemyController
 {
-    // Start is called before the first frame update
-    // public override void Start()
-    // {
-    //     base.Start();
-    // }
+    public bool isDirectToTarget;
+    public Vector3 target;
 
-    // // Update is called once per frame
-    // public override void Update()
-    // {
-
-    // }
-
-    // public override void OnEnable()
-    // {
-
-    // }
+    public override void Start()
+    {
+        base.Start();
+        target = GameObject.FindWithTag("SeedSpawner").transform.position;
+    }
 
     public override void Move()
     {
+        if (isDirectToTarget)
+        {
+            Debug.Log(target);
+            navMeshAgent.SetDestination(target);
+            return;
+        }
+
         navMeshAgent.SetDestination(destination);
     }
 }

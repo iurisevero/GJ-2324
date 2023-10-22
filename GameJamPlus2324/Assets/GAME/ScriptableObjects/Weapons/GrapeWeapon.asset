@@ -18,3 +18,4 @@ MonoBehaviour:
   maxAmountOfAmmo: 70
   amountOfAmmoToRemoveInEachShot: 1
   cadence: 0.1
+  bulletSFX: TiroUva

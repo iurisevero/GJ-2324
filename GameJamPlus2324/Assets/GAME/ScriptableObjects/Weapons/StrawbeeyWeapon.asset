@@ -18,3 +18,4 @@ MonoBehaviour:
   maxAmountOfAmmo: 90
   amountOfAmmoToRemoveInEachShot: 1
   cadence: 0.2
+  bulletSFX: TiroMorango

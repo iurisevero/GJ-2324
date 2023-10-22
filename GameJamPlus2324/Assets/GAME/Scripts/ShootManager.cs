@@ -79,6 +79,8 @@ public class ShootManager : MonoBehaviour
     {
         if (!HasAmmo()) return;
 
+        AudioManager.Instance.Play(weaponS0.bulletSFX);
+        
         EarthTreeType weaponType = weaponS0.GetWeaponType();
         switch (weaponType)
         {

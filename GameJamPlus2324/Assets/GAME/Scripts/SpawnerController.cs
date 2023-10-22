@@ -6,8 +6,11 @@ using Random = UnityEngine.Random;
 public class SpawnerController : MonoBehaviour
 {
     [SerializeField] private List<GameObject> enemies;
-    [SerializeField] private float minRadius = 2f;
-    [SerializeField] private float maxRadius = 5f;
+    [SerializeField] private List<Transform> spawnPoints;
+    // [SerializeField] private float minRadius = 2f;
+    // [SerializeField] private float maxRadius = 5f;
+    //
+    // [SerializeField] private float spawnHeight = 50f;
 
     const string GrapeEnemyPoolKey = "GrapeEnemy";
     const string AvocadoEnemyPoolKey = "AvocadoEnemy";
@@ -25,21 +28,22 @@ public class SpawnerController : MonoBehaviour
     public void SpawnEnemy(EarthTreeType earthTreeType)
     {
         // Debug.Log($"Spawning enemy: {earthTreeType}");
-        Vector3 targetPos = Random.insideUnitSphere * maxRadius;
-        targetPos.y = 0;
+        Vector3 targetPos = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
 
-        if (targetPos.z < 0)
-            targetPos.z = Mathf.Min(maxRadius, Mathf.Abs(targetPos.z)) * -1;
-        else
-            targetPos.z = Mathf.Min(maxRadius, Mathf.Abs(targetPos.z));
-
-        if (targetPos.x < 0)
-            targetPos.x = Mathf.Max(minRadius, Mathf.Abs(targetPos.x)) * -1;
-        else
-            targetPos.x = Mathf.Max(minRadius, Mathf.Abs(targetPos.x));
+        // targetPos.y = spawnHeight;
+        //
+        // if (targetPos.z < 0)
+        //     targetPos.z = Mathf.Min(maxRadius, Mathf.Abs(targetPos.z)) * -1;
+        // else
+        //     targetPos.z = Mathf.Min(maxRadius, Mathf.Abs(targetPos.z));
+        //
+        // if (targetPos.x < 0)
+        //     targetPos.x = Mathf.Max(minRadius, Mathf.Abs(targetPos.x)) * -1;
+        // else
+        //     targetPos.x = Mathf.Max(minRadius, Mathf.Abs(targetPos.x));
 
         string poolKey;
-        switch(earthTreeType)
+        switch (earthTreeType)
         {
             case EarthTreeType.Grape:
                 poolKey = GrapeEnemyPoolKey;
@@ -62,9 +66,9 @@ public class SpawnerController : MonoBehaviour
         // Debug.Log($"Spawned {p.gameObject} at pos: {targetPos}");
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(Vector3.zero, maxRadius);
-        Gizmos.DrawWireSphere(Vector3.zero, minRadius);
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.DrawWireSphere(Vector3.zero, maxRadius);
+    //     Gizmos.DrawWireSphere(Vector3.zero, minRadius);
+    // }
 }

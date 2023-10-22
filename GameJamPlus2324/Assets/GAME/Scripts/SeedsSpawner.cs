@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SeedsSpawner : Singleton<SeedsSpawner>
 {
@@ -20,7 +19,8 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     public int currentWaveIndex;
     public float toWaitTime;
 
-    // Start is called before the first frame update
+    public int enemyDamage = 10;
+
     void Start()
     {
         GameObjectPoolController.AddEntry(GrapeSeedKey, GrapeSeedPrefab, 3, 10);
@@ -42,26 +42,29 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     public IEnumerator StartCurrentWaveRoutine()
     {
         Wave currentWave = waves[currentWaveIndex];
-        waveUIController.SetWaveText(currentWaveIndex+1);
+        waveUIController.SetWaveText(currentWaveIndex + 1);
         toWaitTime = currentWave.timeBeforeWave;
         waveUIController.UpdateTime(toWaitTime);
         waveUIController.SetInstaStartButton(true);
-        while(toWaitTime >= 0)
+        while (toWaitTime >= 0)
         {
             toWaitTime -= Time.deltaTime;
             waveUIController.UpdateTime(toWaitTime);
             yield return new WaitForSeconds(0.1f);
         }
+
         waveUIController.SetInstaStartButton(false);
         totalMonsters = 0;
-        foreach(PairEnemyQuantity pairEnemyQuantity in currentWave.pairEnemyQuantity)
+        foreach (PairEnemyQuantity pairEnemyQuantity in currentWave.pairEnemyQuantity)
         {
             totalMonsters += pairEnemyQuantity.quantity;
-            for(int i=0; i < pairEnemyQuantity.quantity; ++i) { 
+            for (int i = 0; i < pairEnemyQuantity.quantity; ++i)
+            {
                 spawnerController.SpawnEnemy(pairEnemyQuantity.enemyTreeType);
                 yield return new WaitForSeconds(0.5f);
             }
         }
+
         waveUIController.SetWaveFill(totalMonsters);
     }
 
@@ -74,7 +77,7 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     {
         totalMonsters--;
         waveUIController.UpdateWaveFill(totalMonsters);
-        if(totalMonsters == 0)
+        if (totalMonsters == 0)
         {
             FinishWave();
         }
@@ -82,21 +85,25 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
 
     public void FinishWave()
     {
-        foreach(PairEnemyQuantity pairSeedQuantity in waves[currentWaveIndex].pairSeedTypeQuantity)
+        foreach (PairEnemyQuantity pairSeedQuantity in waves[currentWaveIndex].pairSeedTypeQuantity)
         {
-            for(int i=0; i < pairSeedQuantity.quantity; ++i)
+            for (int i = 0; i < pairSeedQuantity.quantity; ++i)
                 StartCoroutine(CreateSeed(pairSeedQuantity.enemyTreeType, i));
         }
 
         currentWaveIndex++;
-        if(currentWaveIndex >= waves.Length) {
-            Debug.Log("Win");
-        } else {
+        if (currentWaveIndex >= waves.Length)
+        {
+            SceneManager.LoadScene("WinScene");
+            Debug.LogWarning("Win");
+        }
+        else
+        {
             StartCurrentWave();
         }
     }
 
-    public IEnumerator CreateSeed(EarthTreeType earthTreeType, float timeBeforeSpawn) 
+    public IEnumerator CreateSeed(EarthTreeType earthTreeType, float timeBeforeSpawn)
     {
         yield return new WaitForSeconds(timeBeforeSpawn);
 
@@ -124,8 +131,38 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
         seedController.ThrowSeed();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            // string poolKey;
+            // switch (other.gameObject.GetComponent<EnemyController>().enemyType)
+            // {
+            //     case EarthTreeType.Grape:
+            //         poolKey = "GrapeEnemy";
+            //         break;
+            //     case EarthTreeType.Strawberry:
+            //         poolKey = "StrawberryEnemy";
+            //         break;
+            //     case EarthTreeType.Avocado:
+            //         poolKey = "AvocadoEnemy";
+            //         break;
+            //     default:
+            //         poolKey = "BananaEnemy";
+            //         break;
+            // }
+            //
+            Poolable p = other.gameObject.GetComponent<Poolable>();
+            GameObjectPoolController.Enqueue(p);
+
+            GameObject.FindWithTag("Player").GetComponent<Health>().TakeDamage(enemyDamage);
+
+            EnemyDied();
+        }
+    }
+
     [System.Serializable]
-    public class Wave 
+    public class Wave
     {
         public PairEnemyQuantity[] pairEnemyQuantity;
         public PairEnemyQuantity[] pairSeedTypeQuantity;

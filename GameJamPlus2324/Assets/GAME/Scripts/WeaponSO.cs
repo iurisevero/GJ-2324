@@ -10,7 +10,8 @@ public class WeaponSO : ScriptableObject
     [SerializeField] private int amountOfAmmoToRemoveInEachShot = 1;
     [SerializeField] private float cadence = 1f;
 
-
+    public string bulletSFX;
+    
     public EarthTreeType GetWeaponType()
     {
         return weaponType;

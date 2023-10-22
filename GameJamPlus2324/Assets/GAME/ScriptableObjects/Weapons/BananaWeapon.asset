@@ -18,3 +18,4 @@ MonoBehaviour:
   maxAmountOfAmmo: 100
   amountOfAmmoToRemoveInEachShot: 1
   cadence: 0.25
+  bulletSFX: TiroBanana

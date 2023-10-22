@@ -18,3 +18,4 @@ MonoBehaviour:
   maxAmountOfAmmo: 80
   amountOfAmmoToRemoveInEachShot: 1
   cadence: 0.15
+  bulletSFX: TiroAbacate

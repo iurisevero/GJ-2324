@@ -1,16 +1,11 @@
-using UnityEngine.Audio;
 using System.Collections.Generic;
-using System.Collections;
-using System;
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager>
 {
-
-
     public Sound[] sounds;
 
-    public Dictionary<string, Sound> mapSounds{ get; set; }
+    public Dictionary<string, Sound> mapSounds { get; set; }
 
     void Awake()
     {
@@ -24,7 +19,8 @@ public class AudioManager : Singleton<AudioManager>
             s.source.dopplerLevel = 0;
             mapSounds.Add(s.name, s);
         }
-        sounds = new Sound[]{}; 
+
+        sounds = new Sound[] { };
     }
 
     public void Play(string sound)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BananaEnemy : EnemyController
@@ -8,13 +6,16 @@ public class BananaEnemy : EnemyController
     public float zigZagMinDistance = 5f;
     public float zigZagMaxDistance = 20f;
     public float moveDistance = 5f;
-    // Start is called before the first frame update
-    // public override void Start()
-    // {
-    //     base.Start();
-    // }
 
-    // // Update is called once per frame
+    public bool isDirectToTarget;
+    public Vector3 target;
+
+    public override void Start()
+    {
+        base.Start();
+        target = GameObject.FindWithTag("SeedSpawner").transform.position;
+    }
+    
     public override void Update()
     {
         base.Update();
@@ -28,6 +29,12 @@ public class BananaEnemy : EnemyController
 
     private void Waypoints()
     {
+        if (isDirectToTarget)
+        {
+            navMeshAgent.SetDestination(target);
+            return;
+        }
+        
         if (Vector3.Distance(navMeshAgent.transform.position, destination) < threshold)
         {
             // Debug.Log($"Waypoints dist current dest: {destination}");

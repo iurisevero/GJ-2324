@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth = 100;
+    public int maxHealth = 100;
+    public int currentHealth = 100;
+    public Action<int> OnHealthValueChanged;
 
-    private void Start()
+    private void Awake()
     {
         currentHealth = maxHealth;
     }
@@ -16,6 +18,8 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
 
+        OnHealthValueChanged?.Invoke(currentHealth);
+
         if (currentHealth <= 0)
         {
             Die();
@@ -24,13 +28,16 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        Debug.LogWarning(gameObject.name + " morreu.");
-        if (!gameObject.tag.Equals("Player")) {
+        if (!gameObject.tag.Equals("Player"))
+        {
             Enqueue();
             SeedsSpawner.Instance.EnemyDied();
         }
         else
-            gameObject.SetActive(false);
+        {
+            // gameObject.SetActive(false);
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     private void Enqueue()

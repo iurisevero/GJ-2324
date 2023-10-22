@@ -7,6 +7,7 @@ TagManager:
   - PlantationArea
   - Seed
   - SeedSpawner
+  - Enemy
   layers:
   - Default
   - TransparentFX

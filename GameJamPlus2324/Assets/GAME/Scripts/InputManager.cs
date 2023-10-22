@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -23,7 +21,7 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Player.paused) return;
+        if (Player.paused) return;
 
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
@@ -32,7 +30,7 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Player.paused) return;
+        if (Player.paused) return;
 
         MovePlayer();
     }
@@ -48,11 +46,10 @@ public class InputManager : MonoBehaviour
     {
         Vector3 flatVel = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
 
-        if(flatVel.magnitude > moveSpeed)
+        if (flatVel.magnitude > moveSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             _rigidbody.velocity = new Vector3(limitedVel.x, _rigidbody.velocity.y, limitedVel.z);
         }
-
     }
 }

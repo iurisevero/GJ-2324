@@ -6,25 +6,23 @@ public class StrawberryEnemy : EnemyController
 {
     public float stopTime;
 
-    // Start is called before the first frame update
-    // public override void Start()
-    // {
-    //     base.Start();
-    // }
+    public bool isDirectToTarget;
+    public Vector3 target;
 
-    // // Update is called once per frame
-    // public override void Update()
-    // {
-
-    // }
-
-    // public override void OnEnable()
-    // {
-
-    // }
+    public override void Start()
+    {
+        base.Start();
+        target = GameObject.FindWithTag("SeedSpawner").transform.position;
+    }
 
     public override void Move()
     {
+        if (isDirectToTarget)
+        {
+            navMeshAgent.SetDestination(target);
+            return;
+        }
+        
         navMeshAgent.SetDestination(destination);
         StartCoroutine(StopWalking());
     }
