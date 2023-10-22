@@ -160,7 +160,7 @@ public class ShootManager : MonoBehaviour
         BulletController bulletController = p.GetComponent<BulletController>();
         bulletController.transform.position = bulletSpawnPosition.position;
         bulletController.transform.forward = bulletSpawnPosition.forward;
-        bulletController.transform.localScale = Vector3.one;
+        // bulletController.transform.localScale = Vector3.one;
         bulletController.gameObject.SetActive(true);
     }
 

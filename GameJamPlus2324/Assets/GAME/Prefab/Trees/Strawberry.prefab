@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 775549940146768579}
   - component: {fileID: 291244281058003474}
   - component: {fileID: 8931771389318548334}
+  - component: {fileID: 4254558265446269497}
   m_Layer: 0
   m_Name: Strawberry
   m_TagString: Untagged
@@ -27,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4212029455253486174}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6972644958626275852}
   m_Father: {fileID: 0}
@@ -94,10 +95,24 @@ BoxCollider:
   m_GameObject: {fileID: 4212029455253486174}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 47.614723, y: 9.172555, z: 4.1096935}
   m_Center: {x: -1.1125717, y: 4.0862775, z: 0.60061884}
+--- !u!136 &4254558265446269497
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4212029455253486174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.1423182
+  m_Height: 9.067912
+  m_Direction: 1
+  m_Center: {x: 0.20708084, y: 4.033956, z: 0}
 --- !u!1001 &7442610532804920807
 PrefabInstance:
   m_ObjectHideFlags: 0
