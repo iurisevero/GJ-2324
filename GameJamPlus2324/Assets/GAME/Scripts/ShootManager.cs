@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShootManager : MonoBehaviour
 {
-    [Header("Weapons")] [SerializeField] List<WeaponSO> weaponSos = new List<WeaponSO>();
+    [Header("Weapons")] [SerializeField] public List<WeaponSO> weaponSos = new List<WeaponSO>();
     [SerializeField] private List<int> weaponCurrentAmountOfAmmo = new List<int>();
     public WeaponSO _selectedWeaponType;
 
