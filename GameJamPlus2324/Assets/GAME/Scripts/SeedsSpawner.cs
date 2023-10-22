@@ -18,6 +18,7 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     public Wave[] waves;
     public int totalMonsters;
     public int currentWaveIndex;
+    public float toWaitTime;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,8 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
         GameObjectPoolController.AddEntry(BananaSeedKey, BananaSeedPrefab, 3, 10);
         GameObjectPoolController.AddEntry(AvocadoSeedKey, AvocadoSeedPrefab, 3, 10);
         GameObjectPoolController.AddEntry(StrawberrySeedKey, StrawberrySeedPrefab, 3, 10);
+        waveUIController.SetInstaStartButton(false);
+        waveUIController.UpdateTime(0f);
         currentWaveIndex = 0;
         totalMonsters = 0;
         StartCurrentWave();
@@ -40,8 +43,16 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     {
         Wave currentWave = waves[currentWaveIndex];
         waveUIController.SetWaveText(currentWaveIndex+1);
-        yield return new WaitForSeconds(currentWave.timeBeforeWave);
-
+        toWaitTime = currentWave.timeBeforeWave;
+        waveUIController.UpdateTime(toWaitTime);
+        waveUIController.SetInstaStartButton(true);
+        while(toWaitTime >= 0)
+        {
+            toWaitTime -= Time.deltaTime;
+            waveUIController.UpdateTime(toWaitTime);
+            yield return new WaitForSeconds(0.1f);
+        }
+        waveUIController.SetInstaStartButton(false);
         totalMonsters = 0;
         foreach(PairEnemyQuantity pairEnemyQuantity in currentWave.pairEnemyQuantity)
         {
@@ -52,6 +63,11 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
             }
         }
         waveUIController.SetWaveFill(totalMonsters);
+    }
+
+    public void InstaStartWave()
+    {
+        toWaitTime = -1;
     }
 
     public void EnemyDied()

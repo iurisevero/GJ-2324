@@ -1851,8 +1851,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408108045}
-  m_LocalRotation: {x: 0.22185205, y: 0.0000000083888025, z: -0.0000000019086355,
-    w: 0.9750804}
+  m_LocalRotation: {x: 0.22185205, y: -0.000000008388803, z: 0.0000000019086357, w: 0.9750804}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1961,6 +1960,18 @@ Transform:
   m_Father: {fileID: 940270793}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1585092766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+    type: 3}
+  m_PrefabInstance: {fileID: 2239028557110638578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80a4832614ad9534a91182f7810e15a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1698214180 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5252094769122652724, guid: 53fd72d18e51dd841a3ba2af598eb740,
@@ -2406,6 +2417,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63753cfa0f83c7408327ba5eaa843cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1995600604 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7805733914273507160, guid: 1c6a25ee4178c7143b2cc845222c8cc2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2362951479888106060}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2071681611
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,6 +2726,11 @@ PrefabInstance:
       propertyPath: spawnerController
       value: 
       objectReference: {fileID: 1969308442}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[0].timeBeforeWave
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f364e57c2df7a3d49a1d369f664db060, type: 3}
 --- !u!1001 &2362951479888106060
@@ -2712,6 +2740,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 513526598}
     m_Modifications:
+    - target: {fileID: 1829400566630245152, guid: 1c6a25ee4178c7143b2cc845222c8cc2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1585092766}
+    - target: {fileID: 2362951477844053018, guid: 1c6a25ee4178c7143b2cc845222c8cc2,
+        type: 3}
+      propertyPath: instaStartButtonImg
+      value: 
+      objectReference: {fileID: 1995600604}
     - target: {fileID: 2362951477844053022, guid: 1c6a25ee4178c7143b2cc845222c8cc2,
         type: 3}
       propertyPath: m_Name
