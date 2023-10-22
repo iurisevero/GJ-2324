@@ -36,12 +36,21 @@ public class ShootManager : MonoBehaviour
         {
             weaponCurrentAmountOfAmmo.Add(weapon.GetMaxAmountOfAmmo());
         }
+
+        for (int i = 0; i < weaponSos.Count; i++)
+        {
+            _weaponSelectionBarUI.SetAmmoText(_weaponSelectionBarUI.GetWeaponIndex(weaponSos[i].GetWeaponType()),
+                weaponCurrentAmountOfAmmo[i], weaponSos[i].GetMaxAmountOfAmmo());
+        }
+
+        // _weaponSelectionBarUI.SetAmmoText(_weaponSelectionBarUI.GetWeaponIndex(_selectedWeaponType.GetWeaponType()),
+        //     weaponCurrentAmountOfAmmo[GetWeaponIndex()], _selectedWeaponType.GetMaxAmountOfAmmo());
     }
 
     void Update()
     {
         if (Player.paused) return;
-        
+
         if (!canShot)
         {
             timeFromLastShot += Time.deltaTime;
@@ -62,6 +71,7 @@ public class ShootManager : MonoBehaviour
     public void SwapWeapon(int swapedWeapon)
     {
         _selectedWeaponType = weaponSos[swapedWeapon];
+        _weaponSelectionBarUI.SelectTheWeapon(_selectedWeaponType.GetWeaponType());
         _weaponSelectionBarUI.SelectTheWeapon(_selectedWeaponType.GetWeaponType());
     }
 
@@ -87,6 +97,9 @@ public class ShootManager : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
         }
+
+        _weaponSelectionBarUI.SetAmmoText(_weaponSelectionBarUI.GetWeaponIndex(weaponS0.GetWeaponType()),
+            weaponCurrentAmountOfAmmo[GetWeaponIndex()], weaponS0.GetMaxAmountOfAmmo());
 
         canShot = false;
         timeFromLastShot = 0f;
@@ -150,7 +163,7 @@ public class ShootManager : MonoBehaviour
     }
 
     public void FullfillAmmo(EarthTreeType treeType)
-    {       
+    {
         weaponCurrentAmountOfAmmo[GetWeaponIndexByTreeType(treeType)] =
             weaponSos[GetWeaponIndexByTreeType(treeType)].GetMaxAmountOfAmmo();
 
