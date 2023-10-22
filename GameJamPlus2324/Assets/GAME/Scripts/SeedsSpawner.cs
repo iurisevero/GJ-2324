@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class SeedsSpawner : MonoBehaviour
+public class SeedsSpawner : Singleton<SeedsSpawner>
 {
     const string GrapeSeedKey = "GrapeSeed";
     const string BananaSeedKey = "BananaSeed";
@@ -12,6 +13,10 @@ public class SeedsSpawner : MonoBehaviour
     public GameObject BananaSeedPrefab;
     public GameObject AvocadoSeedPrefab;
     public GameObject StrawberrySeedPrefab;
+    public SpawnerController spawnerController;
+    public Wave[] waves;
+    public int totalMonsters;
+    public int currentWaveIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -20,23 +25,98 @@ public class SeedsSpawner : MonoBehaviour
         GameObjectPoolController.AddEntry(BananaSeedKey, BananaSeedPrefab, 3, 10);
         GameObjectPoolController.AddEntry(AvocadoSeedKey, AvocadoSeedPrefab, 3, 10);
         GameObjectPoolController.AddEntry(StrawberrySeedKey, StrawberrySeedPrefab, 3, 10);
-        Invoke("CreateSeed", 5f);
-        Invoke("CreateSeed", 10f);
-        Invoke("CreateSeed", 15f);
+        currentWaveIndex = 0;
+        totalMonsters = 0;
+        StartCurrentWave();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartCurrentWave()
     {
-        
+        StartCoroutine(StartCurrentWaveRoutine());
     }
 
-    public void CreateSeed() 
+    public IEnumerator StartCurrentWaveRoutine()
     {
-        Poolable p = GameObjectPoolController.Dequeue(GrapeSeedKey);
+        Wave currentWave = waves[currentWaveIndex];
+        yield return new WaitForSeconds(currentWave.timeBeforeWave);
+
+        totalMonsters = 0;
+        foreach(PairEnemyQuantity pairEnemyQuantity in currentWave.pairEnemyQuantity)
+        {
+            totalMonsters += pairEnemyQuantity.quantity;
+            for(int i=0; i < pairEnemyQuantity.quantity; ++i) { 
+                spawnerController.SpawnEnemy(pairEnemyQuantity.enemyTreeType);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
+    }
+
+    public void EnemyDied()
+    {
+        totalMonsters--;
+
+        if(totalMonsters == 0)
+        {
+            FinishWave();
+        }
+    }
+
+    public void FinishWave()
+    {
+        foreach(PairEnemyQuantity pairSeedQuantity in waves[currentWaveIndex].pairSeedTypeQuantity)
+        {
+            for(int i=0; i < pairSeedQuantity.quantity; ++i)
+                StartCoroutine(CreateSeed(pairSeedQuantity.enemyTreeType, i));
+        }
+
+        currentWaveIndex++;
+        if(currentWaveIndex >= waves.Length) {
+            Debug.Log("Win");
+        } else {
+            StartCurrentWave();
+        }
+    }
+
+    public IEnumerator CreateSeed(EarthTreeType earthTreeType, float timeBeforeSpawn) 
+    {
+        yield return new WaitForSeconds(timeBeforeSpawn);
+
+        string poolKey;
+        switch (earthTreeType)
+        {
+            case EarthTreeType.Grape:
+                poolKey = GrapeSeedKey;
+                break;
+            case EarthTreeType.Strawberry:
+                poolKey = StrawberrySeedKey;
+                break;
+            case EarthTreeType.Avocado:
+                poolKey = AvocadoSeedKey;
+                break;
+            default:
+                poolKey = BananaSeedKey;
+                break;
+        }
+
+        Poolable p = GameObjectPoolController.Dequeue(poolKey);
         SeedController seedController = p.GetComponent<SeedController>();
         seedController.transform.position = transform.position;
         seedController.gameObject.SetActive(true);
         seedController.ThrowSeed();
+    }
+
+    [System.Serializable]
+    public class Wave 
+    {
+        public PairEnemyQuantity[] pairEnemyQuantity;
+        public PairEnemyQuantity[] pairSeedTypeQuantity;
+        public float timeBeforeWave;
+    }
+
+    [System.Serializable]
+    public class PairEnemyQuantity
+    {
+        public EarthTreeType enemyTreeType;
+        public int quantity;
     }
 }

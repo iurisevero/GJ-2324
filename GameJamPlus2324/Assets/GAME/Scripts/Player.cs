@@ -47,7 +47,7 @@ public class Player : Singleton<Player>
     {
         if (paused) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && onPlantationArea)
+        if (Input.GetKeyDown(KeyCode.E) && onPlantationArea && !currentPlantationArea.planted)
         {
             plantationUIController.Populate(seeds);
             plantationUIController.ShowPlantButtons();
@@ -59,6 +59,7 @@ public class Player : Singleton<Player>
         {
             seeds[currentSeedArea.earthTreeSeedType]++;
             GameObjectPoolController.Enqueue(currentSeedArea.GetComponent<Poolable>());
+            onSeedArea = false;
         }
     }
 

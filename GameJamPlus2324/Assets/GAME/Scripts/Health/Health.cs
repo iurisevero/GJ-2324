@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -24,8 +25,10 @@ public class Health : MonoBehaviour
     void Die()
     {
         Debug.LogWarning(gameObject.name + " morreu.");
-        if (!gameObject.tag.Equals("Player"))
+        if (!gameObject.tag.Equals("Player")) {
             Enqueue();
+            SeedsSpawner.Instance.EnemyDied();
+        }
         else
             gameObject.SetActive(false);
     }
