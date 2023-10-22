@@ -167,6 +167,10 @@ public class ShootManager : MonoBehaviour
         weaponCurrentAmountOfAmmo[GetWeaponIndexByTreeType(treeType)] =
             weaponSos[GetWeaponIndexByTreeType(treeType)].GetMaxAmountOfAmmo();
 
+        WeaponSO weaponS0 = weaponSos[GetWeaponIndexByTreeType(treeType)];
+        _weaponSelectionBarUI.SetAmmoText(_weaponSelectionBarUI.GetWeaponIndex(weaponS0.GetWeaponType()),
+            weaponCurrentAmountOfAmmo[GetWeaponIndex()], weaponS0.GetMaxAmountOfAmmo());
+
         Debug.Log("Fullfill");
     }
 

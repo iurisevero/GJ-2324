@@ -14,6 +14,7 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     public GameObject AvocadoSeedPrefab;
     public GameObject StrawberrySeedPrefab;
     public SpawnerController spawnerController;
+    public WaveUIController waveUIController;
     public Wave[] waves;
     public int totalMonsters;
     public int currentWaveIndex;
@@ -38,6 +39,7 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     public IEnumerator StartCurrentWaveRoutine()
     {
         Wave currentWave = waves[currentWaveIndex];
+        waveUIController.SetWaveText(currentWaveIndex+1);
         yield return new WaitForSeconds(currentWave.timeBeforeWave);
 
         totalMonsters = 0;
@@ -49,12 +51,13 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
                 yield return new WaitForSeconds(0.5f);
             }
         }
+        waveUIController.SetWaveFill(totalMonsters);
     }
 
     public void EnemyDied()
     {
         totalMonsters--;
-
+        waveUIController.UpdateWaveFill(totalMonsters);
         if(totalMonsters == 0)
         {
             FinishWave();

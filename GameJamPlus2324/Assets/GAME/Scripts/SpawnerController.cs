@@ -24,7 +24,7 @@ public class SpawnerController : MonoBehaviour
 
     public void SpawnEnemy(EarthTreeType earthTreeType)
     {
-        Debug.Log($"Spawning enemy: {earthTreeType}");
+        // Debug.Log($"Spawning enemy: {earthTreeType}");
         Vector3 targetPos = Random.insideUnitSphere * maxRadius;
         targetPos.y = 0;
 
@@ -59,7 +59,7 @@ public class SpawnerController : MonoBehaviour
         p.gameObject.transform.position = targetPos;
         p.gameObject.transform.rotation = quaternion.identity;
         p.gameObject.SetActive(true);
-        Debug.Log($"Spawned {p.gameObject} at pos: {targetPos}");
+        // Debug.Log($"Spawned {p.gameObject} at pos: {targetPos}");
     }
 
     private void OnDrawGizmos()

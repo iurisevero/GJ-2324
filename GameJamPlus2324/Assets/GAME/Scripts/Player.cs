@@ -10,6 +10,7 @@ public class Player : Singleton<Player>
     const string SeedAreaTag = "Seed";
 
     public PlantationUIController plantationUIController;
+    public SeedsCountUIController seedsCountUIController;
     public static bool paused;
     Dictionary<EarthTreeType, int> seeds;
     bool onPlantationArea = false;
@@ -28,7 +29,7 @@ public class Player : Singleton<Player>
     {
         paused = false;
         refilling = false;
-        plantationUIController.avocadoButton.onClick.AddListener(() => Plant(EarthTreeType.Avocado));
+        plantationUIController.avocadoButton.onClick.AddListener(() => {Debug.Log("Avocado button click"); Plant(EarthTreeType.Avocado);});
         plantationUIController.bananaButton.onClick.AddListener(() => Plant(EarthTreeType.Banana));
         plantationUIController.grapeButton.onClick.AddListener(() => Plant(EarthTreeType.Grape));
         plantationUIController.strawberryButton.onClick.AddListener(() => Plant(EarthTreeType.Strawberry));
@@ -40,6 +41,7 @@ public class Player : Singleton<Player>
             { EarthTreeType.Grape, 0 },
             { EarthTreeType.Strawberry, 0 },
         };
+        seedsCountUIController.UpdateSeedsCount(seeds);
     }
 
     // Update is called once per frame
@@ -52,12 +54,12 @@ public class Player : Singleton<Player>
             plantationUIController.Populate(seeds);
             plantationUIController.ShowPlantButtons();
             plantationUIController.HidePressE();
-            Pause();
         }
 
         if (Input.GetKeyDown(KeyCode.E) && onSeedArea)
         {
             seeds[currentSeedArea.earthTreeSeedType]++;
+            seedsCountUIController.UpdateSeedsCount(seeds);
             GameObjectPoolController.Enqueue(currentSeedArea.GetComponent<Poolable>());
             onSeedArea = false;
         }
@@ -101,7 +103,6 @@ public class Player : Singleton<Player>
             currentPlantationArea = null;
             plantationUIController.HidePressE();
             plantationUIController.HidePlantButtons();
-            UnPause();
             if(refilling)
                 ResetCurrentFullfillTimer();
         }
@@ -140,8 +141,8 @@ public class Player : Singleton<Player>
         if (ret == 0)
         {
             seeds[earthTreeType] -= 1;
+            seedsCountUIController.UpdateSeedsCount(seeds);
             plantationUIController.HidePlantButtons();
-            UnPause();
         }
     }
 

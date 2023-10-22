@@ -102,10 +102,12 @@ public class PlantationUIController : MonoBehaviour
     public void ShowPlantButtons()
     {
         TogglePos(ShowKey);
+        Player.Pause();
     }
 
     public void HidePlantButtons()
     {
         TogglePos(HideKey);
+        Player.UnPause();
     }
 }
