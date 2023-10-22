@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WeaponSelectionBarUI : MonoBehaviour
@@ -9,6 +10,13 @@ public class WeaponSelectionBarUI : MonoBehaviour
 
     [SerializeField] private Sprite selectedWeaponImage;
     [SerializeField] private Sprite notSelectedWeaponImage;
+
+    public List<TextMeshProUGUI> ammoTexts;
+
+    public void SetAmmoText(int index, int currentAmmo, int maxAmmo)
+    {
+        ammoTexts[index].text = currentAmmo + "/" + maxAmmo;
+    }
 
     void Start()
     {
@@ -28,5 +36,18 @@ public class WeaponSelectionBarUI : MonoBehaviour
                 weaponSlot.image.sprite = notSelectedWeaponImage;
             }
         }
+    }
+
+    public int GetWeaponIndex(EarthTreeType treeType)
+    {
+        for (int i = 0; i < weaponSlots.Count; i++)
+        {
+            if (weaponSlots[i].treeType.Equals(treeType))
+            {
+                return i;
+            }
+        }
+
+        return 0;
     }
 }
