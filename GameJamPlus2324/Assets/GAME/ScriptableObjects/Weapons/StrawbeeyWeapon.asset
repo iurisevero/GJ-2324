@@ -15,6 +15,6 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3478093998142253087, guid: 35487f1ac54da1a46889585605749714,
     type: 3}
   weaponType: 2
-  maxAmountOfAmmo: 100
+  maxAmountOfAmmo: 90
   amountOfAmmoToRemoveInEachShot: 1
   cadence: 0.2
