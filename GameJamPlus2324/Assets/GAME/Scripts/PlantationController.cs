@@ -23,7 +23,7 @@ public class PlantationController : MonoBehaviour
             Transform plantedTreeTransform = plantedTreeObj.transform;
             plantedTreeTransform.SetParent(transform);
             // plantedTreeTransform.localScale = Vector3.one;
-            plantedTreeTransform.localPosition = new Vector3(0f, 2f, 0f);
+            plantedTreeTransform.localPosition = new Vector3(0f, 0f, 0f);
             plantedTreeObj.SetActive(true);
             planted = true;
             var glowMain = glow.main;

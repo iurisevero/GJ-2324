@@ -6,6 +6,7 @@ public abstract class BulletController : MonoBehaviour
     [SerializeField] protected float bulletSpeed = 10f;
     [SerializeField] protected float timeToBulletDisappear = 1.25f;
     public int bulletDamage = 10;
+    public EarthTreeType bulletType;
 
     public virtual void Update()
     {
@@ -28,6 +29,12 @@ public abstract class BulletController : MonoBehaviour
     {
         Health otherHealth = other.GetComponent<Health>();
         if (otherHealth is null) return;
-        otherHealth.TakeDamage(bulletDamage);
+        var enemyController = other.GetComponent<EnemyController>();
+        if(enemyController != null)
+        {
+            if(enemyController.enemyType == bulletType)
+                otherHealth.TakeDamage(bulletDamage * 2);
+        } else
+            otherHealth.TakeDamage(bulletDamage);
     }
 }

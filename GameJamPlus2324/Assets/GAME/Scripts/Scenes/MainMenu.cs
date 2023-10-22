@@ -11,6 +11,8 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.Stop("BGMmusic");
+        AudioManager.Instance.Play("BGMMENU");
         playButton.onClick.AddListener(OpenGameScene);
         exitButton.onClick.AddListener(Application.Quit);
     }
@@ -18,5 +20,6 @@ public class MainMenu : MonoBehaviour
     void OpenGameScene()
     {
         SceneManager.LoadScene(sceneToBeLoaded);
+        AudioManager.Instance.Stop("BGMMENU");
     }
 }

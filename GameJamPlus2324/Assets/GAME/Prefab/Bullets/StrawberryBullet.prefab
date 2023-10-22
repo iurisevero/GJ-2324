@@ -53,6 +53,7 @@ MonoBehaviour:
   bulletSpeed: 10
   timeToBulletDisappear: 1.25
   bulletDamage: 10
+  bulletType: 2
 --- !u!33 &3478093998142253082
 MeshFilter:
   m_ObjectHideFlags: 0

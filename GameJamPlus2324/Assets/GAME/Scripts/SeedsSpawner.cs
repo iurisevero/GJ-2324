@@ -14,6 +14,7 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
     public GameObject StrawberrySeedPrefab;
     public SpawnerController spawnerController;
     public WaveUIController waveUIController;
+    public TutorialController tutorialController;
     public Wave[] waves;
     public int totalMonsters;
     public int currentWaveIndex;
@@ -23,6 +24,7 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
 
     void Start()
     {
+        AudioManager.Instance.Play("BGMmusic");
         GameObjectPoolController.AddEntry(GrapeSeedKey, GrapeSeedPrefab, 3, 10);
         GameObjectPoolController.AddEntry(BananaSeedKey, BananaSeedPrefab, 3, 10);
         GameObjectPoolController.AddEntry(AvocadoSeedKey, AvocadoSeedPrefab, 3, 10);
@@ -31,6 +33,12 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
         waveUIController.UpdateTime(0f);
         currentWaveIndex = 0;
         totalMonsters = 0;
+        tutorialController.Show();
+    }
+
+    public void ExitTutorial()
+    {
+        tutorialController.Hide();
         StartCurrentWave();
     }
 

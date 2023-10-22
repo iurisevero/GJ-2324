@@ -10,6 +10,12 @@ public class GrapeBulletAux : MonoBehaviour
     {
         Health otherHealth = other.GetComponent<Health>();
         if (otherHealth is null) return;
-        otherHealth.TakeDamage(grapeBullet.bulletDamage);
+        var enemyController = other.GetComponent<EnemyController>();
+        if(enemyController != null)
+        {
+            if(enemyController.enemyType == grapeBullet.bulletType)
+                otherHealth.TakeDamage(grapeBullet.bulletDamage * 2);
+        } else
+            otherHealth.TakeDamage(grapeBullet.bulletDamage);
     }
 }

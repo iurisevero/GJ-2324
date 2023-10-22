@@ -19,6 +19,7 @@ public class Player : Singleton<Player>
     private bool refilling;
     [SerializeField] ShootManager shootManager;
     
+    
 
     [Header("Fullfill Ammo")] private float timeToFullfill = 2f;
 
@@ -58,6 +59,7 @@ public class Player : Singleton<Player>
         {
             seeds[currentSeedArea.earthTreeSeedType]++;
             seedsCountUIController.UpdateSeedsCount(seeds);
+            plantationUIController.HidePressE();
             GameObjectPoolController.Enqueue(currentSeedArea.GetComponent<Poolable>());
             onSeedArea = false;
         }
@@ -88,6 +90,7 @@ public class Player : Singleton<Player>
         if (col.CompareTag(SeedAreaTag))
         {
             onSeedArea = true;
+            plantationUIController.ShowPressE();
             currentSeedArea = col.gameObject.GetComponent<SeedController>();
             Debug.Log($"isSeed: {currentSeedArea.earthTreeSeedType};");
         }
@@ -108,6 +111,7 @@ public class Player : Singleton<Player>
         if (col.CompareTag(SeedAreaTag))
         {
             onSeedArea = false;
+            plantationUIController.HidePressE();
             currentSeedArea = null;
         }
     }

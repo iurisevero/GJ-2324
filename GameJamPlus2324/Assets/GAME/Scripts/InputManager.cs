@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
 
     Vector3 moveDirection;
     Rigidbody _rigidbody;
+    public Animator playerAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,11 @@ public class InputManager : MonoBehaviour
 
     private void MovePlayer()
     {
+        if(verticalInput != 0 || horizontalInput != 0)
+            playerAnim.SetBool("Running", true);
+        else
+            playerAnim.SetBool("Running", false);
+
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         _rigidbody.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
