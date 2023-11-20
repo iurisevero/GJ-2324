@@ -28,10 +28,10 @@ public class Player : Singleton<Player>
     {
         paused = false;
         refilling = false;
-        plantationUIController.avocadoButton.onClick.AddListener(() => {Debug.Log("Avocado button click"); Plant(EarthTreeType.Avocado);});
-        plantationUIController.bananaButton.onClick.AddListener(() => Plant(EarthTreeType.Banana));
-        plantationUIController.grapeButton.onClick.AddListener(() => Plant(EarthTreeType.Grape));
-        plantationUIController.strawberryButton.onClick.AddListener(() => Plant(EarthTreeType.Strawberry));
+        // plantationUIController.avocadoButton.onClick.AddListener(() => Plant(EarthTreeType.Avocado));
+        // plantationUIController.bananaButton.onClick.AddListener(() => Plant(EarthTreeType.Banana));
+        // plantationUIController.grapeButton.onClick.AddListener(() => Plant(EarthTreeType.Grape));
+        // plantationUIController.strawberryButton.onClick.AddListener(() => Plant(EarthTreeType.Strawberry));
         onPlantationArea = false;
         seeds = new Dictionary<EarthTreeType, int>()
         {
@@ -137,15 +137,22 @@ public class Player : Singleton<Player>
         Debug.Log("Refilled");
     }
 
-    public void Plant(EarthTreeType earthTreeType)
+    // public void Plant(EarthTreeType earthTreeType)
+    // {
+    //     int ret = currentPlantationArea.Plant(earthTreeType);
+    //     if (ret == 0)
+    //     {
+    //         seeds[earthTreeType] -= 1;
+    //         seedsCountUIController.UpdateSeedsCount(seeds);
+    //         plantationUIController.HidePlantButtons();
+    //     }
+    // }
+    public void RemoveSeed(EarthTreeType earthTreeType)
     {
-        int ret = currentPlantationArea.Plant(earthTreeType);
-        if (ret == 0)
-        {
-            seeds[earthTreeType] -= 1;
-            seedsCountUIController.UpdateSeedsCount(seeds);
-            plantationUIController.HidePlantButtons();
-        }
+        seeds[earthTreeType] -= 1;
+        UpdateInventoryEvent updateInventoryEvent = Events.UpdateInventoryEvent;
+        updateInventoryEvent.seeds = seeds;
+        EventManager.Broadcast(updateInventoryEvent);
     }
 
     public static void Pause()

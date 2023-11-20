@@ -3,6 +3,7 @@ using UnityEngine;
 public class SwapWeaponManager : MonoBehaviour
 {
     [SerializeField] private ShootManager shootManager;
+    [SerializeField] private int numberOfWeapons = 4;
     private int currentWeaponIndex = 0;
 
     void Update()
@@ -14,10 +15,11 @@ public class SwapWeaponManager : MonoBehaviour
             // Lógica de troca de arma com a rolagem do mouse
             if (mouseWheel > 0)
             {
-                currentWeaponIndex++;
+                currentWeaponIndex = (currentWeaponIndex + 1) % numberOfWeapons;
             }
             else
             {
+                currentWeaponIndex = (currentWeaponIndex - 1) < 0? numberOfWeapons : currentWeaponIndex;
                 currentWeaponIndex--;
             }
         }
@@ -41,9 +43,6 @@ public class SwapWeaponManager : MonoBehaviour
                 currentWeaponIndex = 3;
             }
         }
-
-        // Certifique-se de que o índice da arma não seja menor que 0 ou maior que o número de armas disponíveis
-        currentWeaponIndex = Mathf.Clamp(currentWeaponIndex, 0, shootManager.weaponSos.Count - 1);
 
         // Chame o método para trocar de arma com base no novo índice
         shootManager.SwapWeapon(currentWeaponIndex);

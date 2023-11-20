@@ -2,39 +2,40 @@ using UnityEngine;
 
 public class PlantationController : MonoBehaviour
 {
-    public PairEarthTreeTypePrefab[] earthTreePrefabs;
-    public ParticleSystem glow;
+    [SerializeField] private PlantationUIController plantationUIController;
     [HideInInspector] public EarthTreeType plantedTree;
-    GameObject plantedTreeObj;
+    public PairEarthTreeTypePrefab[] earthTreePrefabs;
     public bool planted;
+    TreeSpawnerAreaController currentTreeSpawnerAreaController;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnPlayerEnterPlantationAreaEvent(
+        PlayerEnterPlantationAreaEvent playerEnterPlantationAreaEvent) => None();
+    private void OnPlayerExitPlantationAreaEvent(
+        PlayerExitPlantationAreaEvent playerExitPlantationAreaEvent) => None();
+
+    public void None()
     {
-        planted = false;
+
     }
 
-    public int Plant(EarthTreeType earthTreeType)
+    public void Awake()
     {
-        if (!planted)
-        {
-            plantedTree = earthTreeType;
-            plantedTreeObj = Instantiate(GetEarthTreePrefab(earthTreeType));
-            Transform plantedTreeTransform = plantedTreeObj.transform;
-            plantedTreeTransform.SetParent(transform);
-            // plantedTreeTransform.localScale = Vector3.one;
-            plantedTreeTransform.localPosition = new Vector3(0f, 0f, 0f);
-            plantedTreeObj.SetActive(true);
-            planted = true;
-            var glowMain = glow.main;
-            glowMain.startSize = 1;
-            glowMain.startColor = GetEarthTreeColor(earthTreeType);
-            glow.Clear();
-            glow.Play();
-            return 0;
-        }
+        EventManager.AddListener<PlayerEnterPlantationAreaEvent>(OnPlayerEnterPlantationAreaEvent);
+        EventManager.AddListener<PlayerExitPlantationAreaEvent>(OnPlayerExitPlantationAreaEvent);
+    }
 
-        return -1;
+    public void Plant(EarthTreeType earthTreeType)
+    {
+        int ret = currentTreeSpawnerAreaController.Plant(
+            earthTreeType,
+            GetEarthTreePrefab(earthTreeType),
+            GetEarthTreeColor(earthTreeType)
+        );
+
+        if(ret == 0)
+        {
+            plantationUIController.HidePlantButtons();
+        }
     }
 
     private GameObject GetEarthTreePrefab(EarthTreeType earthTreeType)
@@ -59,4 +60,9 @@ public class PlantationController : MonoBehaviour
         return earthTreePrefabs[0].earthTreeColor;
     }
     
+    public void OnDestroy()
+    {
+        EventManager.RemoveListener<PlayerEnterPlantationAreaEvent>(OnPlayerEnterPlantationAreaEvent);
+        EventManager.RemoveListener<PlayerExitPlantationAreaEvent>(OnPlayerExitPlantationAreaEvent);
+    }
 }

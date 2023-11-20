@@ -42,9 +42,6 @@ public class ShootManager : MonoBehaviour
             _weaponSelectionBarUI.SetAmmoText(_weaponSelectionBarUI.GetWeaponIndex(weaponSos[i].GetWeaponType()),
                 weaponCurrentAmountOfAmmo[i], weaponSos[i].GetMaxAmountOfAmmo());
         }
-
-        // _weaponSelectionBarUI.SetAmmoText(_weaponSelectionBarUI.GetWeaponIndex(_selectedWeaponType.GetWeaponType()),
-        //     weaponCurrentAmountOfAmmo[GetWeaponIndex()], _selectedWeaponType.GetMaxAmountOfAmmo());
     }
 
     void Update()
