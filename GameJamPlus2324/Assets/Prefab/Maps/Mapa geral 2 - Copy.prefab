@@ -938,7 +938,7 @@ GameObject:
   - component: {fileID: 269347680957529689}
   - component: {fileID: 303521511816486857}
   m_Layer: 0
-  m_Name: Mapa geral 2
+  m_Name: Mapa geral 2 - Copy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
