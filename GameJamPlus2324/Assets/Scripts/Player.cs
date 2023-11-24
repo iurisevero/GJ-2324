@@ -7,11 +7,10 @@ public class Player : Singleton<Player>
     const string PlantationAreaTag = "PlantationArea";
     const string SeedAreaTag = "Seed";
 
-    public PlantationUIController plantationUIController;
+    public WorldUIController plantationUIController;
     public SeedsCountUIController seedsCountUIController;
     public static bool paused;
-    Dictionary<EarthTreeType, int> seeds;
-    bool onPlantationArea = false;
+    public Dictionary<EarthTreeType, int> seeds { private set; get; }
     bool onSeedArea = false;
     PlantationController currentPlantationArea;
     SeedController currentSeedArea;
@@ -28,11 +27,6 @@ public class Player : Singleton<Player>
     {
         paused = false;
         refilling = false;
-        // plantationUIController.avocadoButton.onClick.AddListener(() => Plant(EarthTreeType.Avocado));
-        // plantationUIController.bananaButton.onClick.AddListener(() => Plant(EarthTreeType.Banana));
-        // plantationUIController.grapeButton.onClick.AddListener(() => Plant(EarthTreeType.Grape));
-        // plantationUIController.strawberryButton.onClick.AddListener(() => Plant(EarthTreeType.Strawberry));
-        onPlantationArea = false;
         seeds = new Dictionary<EarthTreeType, int>()
         {
             { EarthTreeType.Avocado, 0 },
@@ -48,13 +42,6 @@ public class Player : Singleton<Player>
     {
         if (paused) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && onPlantationArea && !currentPlantationArea.planted)
-        {
-            plantationUIController.Populate(seeds);
-            plantationUIController.ShowPlantButtons();
-            plantationUIController.HidePressE();
-        }
-
         if (Input.GetKeyDown(KeyCode.E) && onSeedArea)
         {
             seeds[currentSeedArea.earthTreeSeedType]++;
@@ -68,17 +55,9 @@ public class Player : Singleton<Player>
     void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag(PlantationAreaTag))
-        {
-            onPlantationArea = true;
-            currentPlantationArea = col.gameObject.GetComponent<PlantationController>();
-            
-            if(!currentPlantationArea.planted) {
-                plantationUIController.ShowPressE();
-            }
-            
-            Debug.Log($"isPlanted: {currentPlantationArea.planted}; Refilling: {refilling}");
+        {          
             if (
-                currentPlantationArea.planted && !refilling && 
+                !refilling && 
                 shootManager._selectedWeaponType.GetWeaponType() == currentPlantationArea.plantedTree
             ) {
                 refillCoroutine = RefillAmmo();
@@ -100,7 +79,6 @@ public class Player : Singleton<Player>
     {
         if (col.CompareTag(PlantationAreaTag))
         {
-            onPlantationArea = false;
             currentPlantationArea = null;
             plantationUIController.HidePressE();
             plantationUIController.HidePlantButtons();
@@ -137,16 +115,6 @@ public class Player : Singleton<Player>
         Debug.Log("Refilled");
     }
 
-    // public void Plant(EarthTreeType earthTreeType)
-    // {
-    //     int ret = currentPlantationArea.Plant(earthTreeType);
-    //     if (ret == 0)
-    //     {
-    //         seeds[earthTreeType] -= 1;
-    //         seedsCountUIController.UpdateSeedsCount(seeds);
-    //         plantationUIController.HidePlantButtons();
-    //     }
-    // }
     public void RemoveSeed(EarthTreeType earthTreeType)
     {
         seeds[earthTreeType] -= 1;

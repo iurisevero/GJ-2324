@@ -9,6 +9,7 @@ public static class Events
     public static PlayerExitPlantationAreaEvent PlayerExitPlantationAreaEvent = 
         new PlayerExitPlantationAreaEvent();
     public static UpdateInventoryEvent UpdateInventoryEvent = new UpdateInventoryEvent();
+    public static GetEKeyDownEvent GetEKeyDownEvent = new GetEKeyDownEvent(); 
     // public static ObjectiveUpdateEvent ObjectiveUpdateEvent = new ObjectiveUpdateEvent();
     // public static AllObjectivesCompletedEvent AllObjectivesCompletedEvent = new AllObjectivesCompletedEvent();
     // public static GameOverEvent GameOverEvent = new GameOverEvent();
@@ -22,7 +23,6 @@ public static class Events
 
 public class PlayerEnterPlantationAreaEvent : GameEvent
 {
-    public Player player; // TODO player singleton?
     public TreeSpawnerAreaController treeSpawnerAreaController;
 }
 
@@ -33,6 +33,10 @@ public class PlayerExitPlantationAreaEvent : GameEvent
 public class UpdateInventoryEvent : GameEvent
 {
     public Dictionary<EarthTreeType, int> seeds;
+}
+
+public class GetEKeyDownEvent : GameEvent
+{
 }
 
 // public class ObjectiveUpdateEvent : GameEvent

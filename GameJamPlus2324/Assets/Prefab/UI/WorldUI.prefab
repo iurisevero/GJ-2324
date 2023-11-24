@@ -864,7 +864,7 @@ GameObject:
   - component: {fileID: 7034782290131096763}
   - component: {fileID: 7034782290131096760}
   m_Layer: 0
-  m_Name: PlantationUI
+  m_Name: WorldUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1541,7 +1541,7 @@ GameObject:
   - component: {fileID: 7034782290743336201}
   - component: {fileID: 7034782290743336202}
   m_Layer: 5
-  m_Name: PlantTreeUI
+  m_Name: PressEImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1731,9 +1731,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7034782290131096760}
-        m_TargetAssemblyTypeName: PlantationUIController, Assembly-CSharp
-        m_MethodName: HidePlantButtons
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlantationController, Assembly-CSharp
+        m_MethodName: PlantAvocado
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2404,7 +2404,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1283700962}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlantationController, Assembly-CSharp
+        m_MethodName: PlantStrawberry
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1283700962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2525,7 +2537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1305461791}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlantationController, Assembly-CSharp
+        m_MethodName: PlantGrape
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1305461791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2684,7 +2708,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1206559770}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PlantationController, Assembly-CSharp
+        m_MethodName: PlantBanana
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1206559770
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlantationUIController : MonoBehaviour
+public class WorldUIController : MonoBehaviour
 {
     const string HideKey = "Hide";
     const string ShowKey = "Show";

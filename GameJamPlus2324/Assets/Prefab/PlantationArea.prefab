@@ -4889,7 +4889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6132935243188296346}
   - component: {fileID: 6132935243188296345}
-  - component: {fileID: 6132935243188296344}
+  - component: {fileID: 7970068209629677867}
   m_Layer: 0
   m_Name: PlantationArea
   m_TagString: PlantationArea
@@ -4927,7 +4927,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &6132935243188296344
+--- !u!114 &7970068209629677867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4936,28 +4936,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6132935243188296351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f1778dfd11d37a4bae1ab61740f5883, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f485735396b43c4bb6b020e44143004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  earthTreePrefabs:
-  - earthTreeType: 1
-    earthTreePrefab: {fileID: 9204238224471692389, guid: 00cfcc01869678148bff37b2bd1f8a51,
-      type: 3}
-    earthTreeColor: {r: 0, g: 1, b: 0.015195131, a: 1}
-  - earthTreeType: 3
-    earthTreePrefab: {fileID: 6439016734769851756, guid: 129202f79f98b2e4bac6a0465ecb098b,
-      type: 3}
-    earthTreeColor: {r: 0.96469927, g: 1, b: 0, a: 1}
-  - earthTreeType: 0
-    earthTreePrefab: {fileID: 240623711384889653, guid: c39681dd2f9a27242bef9b08ef854703,
-      type: 3}
-    earthTreeColor: {r: 0.49056602, g: 0, b: 0.35582685, a: 1}
-  - earthTreeType: 2
-    earthTreePrefab: {fileID: 4212029455253486174, guid: ab0366997a938814582d9dc8377440bd,
-      type: 3}
-    earthTreeColor: {r: 1, g: 0, b: 0, a: 1}
-  glow: {fileID: 6132935242855368261}
   plantedTree: 0
+  glow: {fileID: 6132935242855368261}
+  plantedTreeObj: {fileID: 0}
   planted: 0
 --- !u!1 &6132935243258160315
 GameObject:

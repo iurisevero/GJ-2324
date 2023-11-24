@@ -5,10 +5,10 @@ using UnityEngine;
 public class TreeSpawnerAreaController : MonoBehaviour
 {
     const string PlayerTag = "Player";
-    [SerializeField] private ParticleSystem glow;
-    [SerializeField] private bool planted;
     [HideInInspector] public EarthTreeType plantedTree;
-    GameObject plantedTreeObj;
+    [SerializeField] private ParticleSystem glow;
+    public GameObject plantedTreeObj;
+    public bool planted;
 
     void Start()
     {
@@ -39,23 +39,21 @@ public class TreeSpawnerAreaController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log($"Col tag: {col.tag}");
         if (col.CompareTag(PlayerTag))
         {
+            Debug.Log("OnPlayerEnterTreeSpawnerArea");
             PlayerEnterPlantationAreaEvent playerEnterPlantationAreaEvent = 
                 Events.PlayerEnterPlantationAreaEvent;
             playerEnterPlantationAreaEvent.treeSpawnerAreaController = this;
-            playerEnterPlantationAreaEvent.player = col.GetComponent<Player>();
             EventManager.Broadcast(playerEnterPlantationAreaEvent);
         }
     }
 
     void OnTriggerExit(Collider col)
     {
+        Debug.Log("OnPlayerExitTreeSpawnerArea");
         if (col.CompareTag(PlayerTag))
-        {
-            PlayerExitPlantationAreaEvent playerExitPlantationAreaEvent = 
-                Events.PlayerExitPlantationAreaEvent;
-            EventManager.Broadcast(playerExitPlantationAreaEvent);
-        }
+            EventManager.Broadcast(Events.PlayerExitPlantationAreaEvent);
     }
 }

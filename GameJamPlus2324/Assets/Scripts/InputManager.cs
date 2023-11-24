@@ -24,6 +24,10 @@ public class InputManager : MonoBehaviour
     {
         if (Player.paused) return;
 
+        if (Input.GetKeyDown(KeyCode.E)){
+            EventManager.Broadcast(Events.GetEKeyDownEvent);
+        }
+
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
         SpeedControl();
