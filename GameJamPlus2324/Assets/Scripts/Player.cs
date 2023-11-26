@@ -12,21 +12,14 @@ public class Player : Singleton<Player>
     public static bool paused;
     public Dictionary<EarthTreeType, int> seeds { private set; get; }
     bool onSeedArea = false;
-    PlantationController currentPlantationArea;
     SeedController currentSeedArea;
-    private IEnumerator refillCoroutine;
-    private bool refilling;
     [SerializeField] ShootManager shootManager;
     
     
-
-    [Header("Fullfill Ammo")] private float timeToFullfill = 2f;
-
     // Start is called before the first frame update
     void Start()
     {
         paused = false;
-        refilling = false;
         seeds = new Dictionary<EarthTreeType, int>()
         {
             { EarthTreeType.Avocado, 0 },
@@ -54,18 +47,6 @@ public class Player : Singleton<Player>
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag(PlantationAreaTag))
-        {          
-            if (
-                !refilling && 
-                shootManager._selectedWeaponType.GetWeaponType() == currentPlantationArea.plantedTree
-            ) {
-                refillCoroutine = RefillAmmo();
-                plantationUIController.ShowReload(timeToFullfill);
-                StartCoroutine(refillCoroutine);
-            }
-        }
-
         if (col.CompareTag(SeedAreaTag))
         {
             onSeedArea = true;
@@ -77,15 +58,6 @@ public class Player : Singleton<Player>
 
     void OnTriggerExit(Collider col)
     {
-        if (col.CompareTag(PlantationAreaTag))
-        {
-            currentPlantationArea = null;
-            plantationUIController.HidePressE();
-            plantationUIController.HidePlantButtons();
-            if(refilling)
-                ResetCurrentFullfillTimer();
-        }
-
         if (col.CompareTag(SeedAreaTag))
         {
             onSeedArea = false;
@@ -94,33 +66,22 @@ public class Player : Singleton<Player>
         }
     }
 
-    void ResetCurrentFullfillTimer()
-    {
-        StopCoroutine(refillCoroutine);
-        plantationUIController.HideReload();
-        refilling = false;
-        Debug.Log("Stop refill in middle");
-    }
-
-    IEnumerator RefillAmmo()
-    {
-        Debug.Log("Refilling ammo");
-        refilling = true;
-        yield return new WaitForSeconds(timeToFullfill);
-        Debug.Log($"CurrentPlantationArea: {currentPlantationArea};");
-        Debug.Log($"planted Tree: {currentPlantationArea.plantedTree}");
-        shootManager.FullfillAmmo(currentPlantationArea.plantedTree);
-        refilling = false;
-        plantationUIController.HideReload();
-        Debug.Log("Refilled");
-    }
-
     public void RemoveSeed(EarthTreeType earthTreeType)
     {
         seeds[earthTreeType] -= 1;
         UpdateInventoryEvent updateInventoryEvent = Events.UpdateInventoryEvent;
         updateInventoryEvent.seeds = seeds;
         EventManager.Broadcast(updateInventoryEvent);
+    }
+
+    public WeaponSO GetCurrentWeapon()
+    {
+        return shootManager._selectedWeaponType;
+    }
+
+    public void Reload(EarthTreeType earthTreeType)
+    {
+        shootManager.FullfillAmmo(earthTreeType);
     }
 
     public static void Pause()

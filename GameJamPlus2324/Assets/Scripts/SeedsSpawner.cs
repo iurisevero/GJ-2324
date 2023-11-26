@@ -74,6 +74,11 @@ public class SeedsSpawner : Singleton<SeedsSpawner>
         }
 
         waveUIController.SetWaveFill(totalMonsters);
+        
+        if (totalMonsters == 0)
+        {
+            FinishWave();
+        }
     }
 
     public void InstaStartWave()

@@ -3,9 +3,8 @@ using UnityEngine;
 public class PlantationController : MonoBehaviour
 {
     [SerializeField] private WorldUIController worldUIController;
-    [HideInInspector] public EarthTreeType plantedTree;
-    public PairEarthTreeTypePrefab[] earthTreePrefabs;
-    TreeSpawnerAreaController currentTreeSpawnerAreaController;
+    [SerializeField] private PairEarthTreeTypePrefab[] earthTreePrefabs;
+    private TreeSpawnerAreaController currentTreeSpawnerAreaController;
 
     private void OnPlayerExitPlantationAreaEvent(PlayerExitPlantationAreaEvent evt) => 
         OnPlayerExitPlantationAreaHandler();
@@ -42,7 +41,6 @@ public class PlantationController : MonoBehaviour
 
     private void OnPlayerEnterPlantationAreaHandler(PlayerEnterPlantationAreaEvent evt)
     {
-        Debug.Log("OnPlayerEnterPlantationAreaHandler");
         currentTreeSpawnerAreaController = evt.treeSpawnerAreaController;
         if(!currentTreeSpawnerAreaController.planted)
             worldUIController.ShowPressE();
@@ -50,7 +48,6 @@ public class PlantationController : MonoBehaviour
 
     private void OnPlayerExitPlantationAreaHandler()
     {
-        Debug.Log("OnPlayerExitPlantationAreaHandler");
         currentTreeSpawnerAreaController = null;
         worldUIController.HidePressE();
         worldUIController.HidePlantButtons();

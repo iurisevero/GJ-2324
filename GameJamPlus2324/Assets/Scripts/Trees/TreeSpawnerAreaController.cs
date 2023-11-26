@@ -5,7 +5,7 @@ using UnityEngine;
 public class TreeSpawnerAreaController : MonoBehaviour
 {
     const string PlayerTag = "Player";
-    [HideInInspector] public EarthTreeType plantedTree;
+    [HideInInspector] public EarthTreeType plantedTreeType;
     [SerializeField] private ParticleSystem glow;
     public GameObject plantedTreeObj;
     public bool planted;
@@ -19,7 +19,7 @@ public class TreeSpawnerAreaController : MonoBehaviour
     {
         if (!planted)
         {
-            plantedTree = earthTreeType;
+            plantedTreeType = earthTreeType;
             plantedTreeObj = Instantiate(earthTreePrefab);
             Transform plantedTreeTransform = plantedTreeObj.transform;
             plantedTreeTransform.SetParent(transform);

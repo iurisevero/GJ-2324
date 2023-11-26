@@ -18,15 +18,15 @@ public class WorldUIController : MonoBehaviour
     public TextMeshProUGUI grapeText;
     public TextMeshProUGUI strawberryText;
 
-    public GameObject reloadObj;
-    public Image reloadFill;
-    public IEnumerator fillCoroutine;
+    // public GameObject reloadObj;
+    // public Image reloadFill;
+    // public IEnumerator fillCoroutine;
 
     public GameObject pressEObj;
 
     private void Start()
     {
-        reloadObj.SetActive(false);
+        // reloadObj.SetActive(false);
         pressEObj.SetActive(false);
     }
 
@@ -64,20 +64,20 @@ public class WorldUIController : MonoBehaviour
         }
     }
 
-    public void ShowReload(float reloadTime)
-    {
-        reloadObj.SetActive(true);
-        fillCoroutine = FillReloadImage(reloadTime);
-        reloadFill.fillAmount = 0;
-        StartCoroutine(fillCoroutine);
-    }
+    // public void ShowReload(float reloadTime)
+    // {
+    //     reloadObj.SetActive(true);
+    //     fillCoroutine = FillReloadImage(reloadTime);
+    //     reloadFill.fillAmount = 0;
+    //     StartCoroutine(fillCoroutine);
+    // }
 
-    public void HideReload()
-    {
-        Debug.Log("HideReload");
-        reloadObj.SetActive(false);
-        StopCoroutine(fillCoroutine);
-    }
+    // public void HideReload()
+    // {
+    //     Debug.Log("HideReload");
+    //     reloadObj.SetActive(false);
+    //     StopCoroutine(fillCoroutine);
+    // }
 
     public void ShowPressE()
     {
@@ -90,14 +90,14 @@ public class WorldUIController : MonoBehaviour
     }
 
 
-    private IEnumerator FillReloadImage(float reloadTime)
-    {
-        while(reloadFill.fillAmount <= 1)
-        {
-            reloadFill.fillAmount += 1.0f / reloadTime * Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-        }
-    }
+    // private IEnumerator FillReloadImage(float reloadTime)
+    // {
+    //     while(reloadFill.fillAmount <= 1)
+    //     {
+    //         reloadFill.fillAmount += 1.0f / reloadTime * Time.deltaTime;
+    //         yield return new WaitForEndOfFrame();
+    //     }
+    // }
 
     public void ShowPlantButtons()
     {

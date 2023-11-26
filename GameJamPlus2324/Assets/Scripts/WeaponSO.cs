@@ -9,6 +9,7 @@ public class WeaponSO : ScriptableObject
     [SerializeField] private int maxAmountOfAmmo = 10;
     [SerializeField] private int amountOfAmmoToRemoveInEachShot = 1;
     [SerializeField] private float cadence = 1f;
+    [SerializeField] private float timeToFullrefill = 2f;
 
     public string bulletSFX;
     
@@ -35,5 +36,10 @@ public class WeaponSO : ScriptableObject
     public int GetMaxAmountOfAmmo()
     {
         return maxAmountOfAmmo;
+    }
+
+    public float GetTimeToFullrefill()
+    {
+        return timeToFullrefill;
     }
 }
