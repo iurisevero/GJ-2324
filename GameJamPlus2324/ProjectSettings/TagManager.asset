@@ -8,6 +8,7 @@ TagManager:
   - Seed
   - SeedSpawner
   - Enemy
+  - ground
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Enemy
   - Bullet
   - PostProcessing
-  - 
+  - ColliderCamera
   - 
   - 
   - 
