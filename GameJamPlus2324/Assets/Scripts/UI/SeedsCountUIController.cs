@@ -10,11 +10,16 @@ public class SeedsCountUIController : MonoBehaviour
     public TextMeshProUGUI avocatoSeedsText;
     public TextMeshProUGUI strawberrySeedsText;
 
-    public void UpdateSeedsCount(Dictionary<EarthTreeType, int> seeds)
+    public void Awake()
     {
-        grapeSeedsText.text = seeds[EarthTreeType.Grape].ToString();
-        bananaSeedsText.text = seeds[EarthTreeType.Banana].ToString();
-        avocatoSeedsText.text = seeds[EarthTreeType.Avocado].ToString();
-        strawberrySeedsText.text = seeds[EarthTreeType.Strawberry].ToString();
+        EventManager.AddListener<UpdateInventoryEvent>(OnUpdateInventoryHandler);
+    }
+
+    public void OnUpdateInventoryHandler(UpdateInventoryEvent evt)
+    {
+        grapeSeedsText.text = evt.seeds[EarthTreeType.Grape].ToString();
+        bananaSeedsText.text = evt.seeds[EarthTreeType.Banana].ToString();
+        avocatoSeedsText.text = evt.seeds[EarthTreeType.Avocado].ToString();
+        strawberrySeedsText.text = evt.seeds[EarthTreeType.Strawberry].ToString();
     }
 }

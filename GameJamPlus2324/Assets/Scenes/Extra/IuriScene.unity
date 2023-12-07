@@ -1213,7 +1213,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620526392}
-  m_LocalRotation: {x: 0.26693356, y: 0.000000028720944, z: -0.00000000795524, w: 0.96371496}
+  m_LocalRotation: {x: 0.26693356, y: -0.000000028720944, z: 0.00000000795524, w: 0.96371496}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1458,8 +1458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd17792a86ab09046bbf9651a30c017d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantationUIController: {fileID: 699779361}
-  seedsCountUIController: {fileID: 1698214181}
   shootManager: {fileID: 573663010}
 --- !u!114 &940270796
 MonoBehaviour:
@@ -2128,24 +2126,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reloadObj: {fileID: 726208571}
   reloadFill: {fileID: 1971762384}
+--- !u!114 &1660776197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660776194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde72b7a47af2e04abb9677653807771, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldUIController: {fileID: 699779361}
 --- !u!224 &1698214180 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5252094769122652724, guid: 53fd72d18e51dd841a3ba2af598eb740,
     type: 3}
   m_PrefabInstance: {fileID: 5252094769739760400}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1698214181 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5252094769122652725, guid: 53fd72d18e51dd841a3ba2af598eb740,
-    type: 3}
-  m_PrefabInstance: {fileID: 5252094769739760400}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43e2c58f27db6db4e843f203efecfe9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1709280606
 GameObject:
   m_ObjectHideFlags: 3

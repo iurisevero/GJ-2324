@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    const string PlantationAreaTag = "PlantationArea";
-    const string SeedAreaTag = "Seed";
-
-    public WorldUIController plantationUIController;
-    public SeedsCountUIController seedsCountUIController;
     public static bool paused;
     public Dictionary<EarthTreeType, int> seeds { private set; get; }
-    bool onSeedArea = false;
-    SeedController currentSeedArea;
     [SerializeField] ShootManager shootManager;
     
     
@@ -27,48 +20,12 @@ public class Player : Singleton<Player>
             { EarthTreeType.Grape, 0 },
             { EarthTreeType.Strawberry, 0 },
         };
-        seedsCountUIController.UpdateSeedsCount(seeds);
+        UpdateSeeds( EarthTreeType.Avocado, 0);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateSeeds(EarthTreeType earthTreeType, int amount)
     {
-        if (paused) return;
-
-        if (Input.GetKeyDown(KeyCode.E) && onSeedArea)
-        {
-            seeds[currentSeedArea.earthTreeSeedType]++;
-            seedsCountUIController.UpdateSeedsCount(seeds);
-            plantationUIController.HidePressE();
-            GameObjectPoolController.Enqueue(currentSeedArea.GetComponent<Poolable>());
-            onSeedArea = false;
-        }
-    }
-
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.CompareTag(SeedAreaTag))
-        {
-            onSeedArea = true;
-            plantationUIController.ShowPressE();
-            currentSeedArea = col.gameObject.GetComponent<SeedController>();
-            Debug.Log($"isSeed: {currentSeedArea.earthTreeSeedType};");
-        }
-    }
-
-    void OnTriggerExit(Collider col)
-    {
-        if (col.CompareTag(SeedAreaTag))
-        {
-            onSeedArea = false;
-            plantationUIController.HidePressE();
-            currentSeedArea = null;
-        }
-    }
-
-    public void RemoveSeed(EarthTreeType earthTreeType)
-    {
-        seeds[earthTreeType] -= 1;
+        seeds[earthTreeType] += amount;
         UpdateInventoryEvent updateInventoryEvent = Events.UpdateInventoryEvent;
         updateInventoryEvent.seeds = seeds;
         EventManager.Broadcast(updateInventoryEvent);

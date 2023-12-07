@@ -8,6 +8,10 @@ public static class Events
         new PlayerEnterPlantationAreaEvent();
     public static PlayerExitPlantationAreaEvent PlayerExitPlantationAreaEvent = 
         new PlayerExitPlantationAreaEvent();
+    public static PlayerEnterSeedAreaEvent PlayerEnterSeedAreaEvent = 
+        new PlayerEnterSeedAreaEvent();
+    public static PlayerExitSeedAreaEvent PlayerExitSeedAreaEvent = 
+        new PlayerExitSeedAreaEvent();
     public static UpdateInventoryEvent UpdateInventoryEvent = new UpdateInventoryEvent();
     public static GetEKeyDownEvent GetEKeyDownEvent = new GetEKeyDownEvent(); 
     // public static ObjectiveUpdateEvent ObjectiveUpdateEvent = new ObjectiveUpdateEvent();
@@ -27,6 +31,15 @@ public class PlayerEnterPlantationAreaEvent : GameEvent
 }
 
 public class PlayerExitPlantationAreaEvent : GameEvent
+{
+}
+
+public class PlayerEnterSeedAreaEvent : GameEvent
+{
+    public SeedController seedController;
+}
+
+public class PlayerExitSeedAreaEvent : GameEvent
 {
 }
 

@@ -35,7 +35,7 @@ public class PlantationController : MonoBehaviour
         if(ret == 0)
         {
             worldUIController.HidePlantButtons();
-            Player.Instance.RemoveSeed(earthTreeType);
+            Player.Instance.UpdateSeeds(earthTreeType, -1);
         }
     }
 

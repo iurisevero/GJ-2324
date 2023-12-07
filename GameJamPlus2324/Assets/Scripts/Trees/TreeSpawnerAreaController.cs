@@ -39,7 +39,6 @@ public class TreeSpawnerAreaController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log($"Col tag: {col.tag}");
         if (col.CompareTag(PlayerTag))
         {
             Debug.Log("OnPlayerEnterTreeSpawnerArea");
