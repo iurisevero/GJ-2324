@@ -7,10 +7,18 @@ public class Health : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth = 100;
     public Action<int> OnHealthValueChanged;
+    private bool isDead;
 
-    private void Awake()
+    private void Start()
     {
         currentHealth = maxHealth;
+        isDead = false;
+    }
+
+    private void OnEnable()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
     }
 
     public void TakeDamage(int damage)
@@ -28,6 +36,11 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        if(isDead)
+            return;
+        
+        isDead = true;
+
         if (!gameObject.tag.Equals("Player"))
         {
             Enqueue();

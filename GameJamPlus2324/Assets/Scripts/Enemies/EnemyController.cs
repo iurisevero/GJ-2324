@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public abstract class EnemyController : MonoBehaviour
 {
     [SerializeField] protected NavMeshAgent navMeshAgent;
+    [SerializeField] protected RectTransform lifeBarTransform;
 
     public EarthTreeType enemyType;
     public float enemySpeed;
@@ -28,7 +29,7 @@ public abstract class EnemyController : MonoBehaviour
     // Update is called once per frame
     public virtual void  Update()
     {
-        
+        lifeBarTransform.LookAt(Camera.main.transform.position);
     }
 
     public virtual void OnEnable()
