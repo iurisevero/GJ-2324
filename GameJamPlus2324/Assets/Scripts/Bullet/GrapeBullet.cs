@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GrapeBullet : BulletController
@@ -36,8 +37,13 @@ public class GrapeBullet : BulletController
         Invoke("Enqueue", timeToBulletDisappear);
     }
 
-    // public override void Enqueue()
-    // {
-    //     base.Enqueue();
-    // }
+    protected override void OnTriggerEnter(Collider other)
+    {
+        return;
+    }
+
+    public void ChildTriggerEnter(Collider other)
+    {
+        HandleCollision(other);
+    }
 }

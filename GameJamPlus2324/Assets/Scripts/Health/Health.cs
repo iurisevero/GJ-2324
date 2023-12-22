@@ -6,23 +6,29 @@ public class Health : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth = 100;
+    
     public Action<int> OnHealthValueChanged;
     private bool isDead;
 
     private void Start()
     {
-        currentHealth = maxHealth;
+        Debug.Log($"{this.gameObject} health started");
+        currentHealth = maxHealth;  
+        OnHealthValueChanged?.Invoke(currentHealth);
         isDead = false;
     }
 
     private void OnEnable()
     {
+        Debug.Log($"{this.gameObject} health enabled");
         currentHealth = maxHealth;
+        OnHealthValueChanged?.Invoke(currentHealth);
         isDead = false;
     }
 
     public void TakeDamage(int damage)
     {
+        Debug.Log($"{this.gameObject} health take damage");
         currentHealth -= damage;
         currentHealth = Mathf.Max(0, currentHealth);
 
@@ -36,6 +42,7 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        Debug.Log($"{this.gameObject} health die");
         if(isDead)
             return;
         
@@ -55,6 +62,7 @@ public class Health : MonoBehaviour
 
     private void Enqueue()
     {
+        Debug.Log($"{this.gameObject} health enqueue");
         Poolable p = gameObject.GetComponent<Poolable>();
         GameObjectPoolController.Enqueue(p);
     }

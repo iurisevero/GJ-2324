@@ -25,15 +25,25 @@ public abstract class BulletController : MonoBehaviour
         GameObjectPoolController.Enqueue(p);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
+    {
+        HandleCollision(other);
+    }
+
+    protected virtual void HandleCollision(Collider other)
     {
         Health otherHealth = other.GetComponent<Health>();
-        if (otherHealth is null) return;
+        if (otherHealth == null) 
+            return;
+
         var enemyController = other.GetComponent<EnemyController>();
         if(enemyController != null)
         {
+            Debug.Log($"{this.gameObject} hitted enemy {enemyController.gameObject}");
             if(enemyController.enemyType == bulletType)
                 otherHealth.TakeDamage(bulletDamage * 2);
+            else
+                otherHealth.TakeDamage(bulletDamage);
         } else
             otherHealth.TakeDamage(bulletDamage);
     }

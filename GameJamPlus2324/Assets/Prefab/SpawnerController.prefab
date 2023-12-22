@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 5615735500965005629, guid: a5787ada705666947bdb973d2acb1df4, type: 3}
+  - {fileID: 5196306134724129095, guid: a5787ada705666947bdb973d2acb1df4, type: 3}
   - {fileID: 3061679954500719502, guid: 9c05235cee1f1c247a67064efd282c6e, type: 3}
-  - {fileID: 2180568706719047871, guid: e2f079f52b8c45f46b38743ce0d0a640, type: 3}
-  - {fileID: 1268199818273506390, guid: b1f6ca6a344c26d4d8116a98b831bb67, type: 3}
-  minRadius: 20
-  maxRadius: 50
+  - {fileID: 8900019181538716518, guid: e2f079f52b8c45f46b38743ce0d0a640, type: 3}
+  - {fileID: 8790867399208355453, guid: b1f6ca6a344c26d4d8116a98b831bb67, type: 3}
+  spawnPoints: []

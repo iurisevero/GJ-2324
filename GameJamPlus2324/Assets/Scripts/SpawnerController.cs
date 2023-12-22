@@ -19,10 +19,10 @@ public class SpawnerController : MonoBehaviour
 
     void Start()
     {
-        GameObjectPoolController.AddEntry(GrapeEnemyPoolKey, enemies[0], 3, 15);
-        GameObjectPoolController.AddEntry(AvocadoEnemyPoolKey, enemies[1], 3, 15);
-        GameObjectPoolController.AddEntry(StrawberryEnemyPoolKey, enemies[2], 3, 15);
-        GameObjectPoolController.AddEntry(BananaEnemyPoolKey, enemies[3], 3, 15);
+        GameObjectPoolController.AddEntry(GrapeEnemyPoolKey, enemies[0], 1, 15);
+        GameObjectPoolController.AddEntry(AvocadoEnemyPoolKey, enemies[1], 1, 15);
+        GameObjectPoolController.AddEntry(StrawberryEnemyPoolKey, enemies[2], 1, 15);
+        GameObjectPoolController.AddEntry(BananaEnemyPoolKey, enemies[3], 1, 15);
     }
 
     public void SpawnEnemy(EarthTreeType earthTreeType)

@@ -51,7 +51,7 @@ public class TreeSpawnerAreaController : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
-        Debug.Log("OnPlayerExitTreeSpawnerArea");
+        // Debug.Log("OnPlayerExitTreeSpawnerArea");
         if (col.CompareTag(PlayerTag))
             EventManager.Broadcast(Events.PlayerExitPlantationAreaEvent);
     }

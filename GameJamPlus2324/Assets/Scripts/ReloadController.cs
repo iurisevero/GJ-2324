@@ -82,7 +82,7 @@ public class ReloadController : MonoBehaviour
 
     private void OnPlayerExitPlantationAreaHandler()
     {
-        Debug.Log("OnPlayerExitPlantationAreaHandler");
+        // Debug.Log("OnPlayerExitPlantationAreaHandler");
         currentTreeSpawnerAreaController = null;
         currentWeapon = null;
         HideReloadUI();

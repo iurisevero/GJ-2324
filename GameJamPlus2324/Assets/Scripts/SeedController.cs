@@ -30,7 +30,7 @@ public class SeedController : MonoBehaviour
 
     void OnTriggerExit(Collider col)
     {
-        Debug.Log("OnPlayerExitSeedArea");
+        // Debug.Log("OnPlayerExitSeedArea");
         if (col.CompareTag(PlayerTag))
             EventManager.Broadcast(Events.PlayerExitPlantationAreaEvent);
     }
