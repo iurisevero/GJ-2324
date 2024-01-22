@@ -3036,7 +3036,7 @@ PrefabInstance:
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
         type: 3}
       propertyPath: waves.Array.data[1].timeBeforeWave
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
         type: 3}
@@ -3046,7 +3046,7 @@ PrefabInstance:
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
         type: 3}
       propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.size
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
         type: 3}
@@ -3076,6 +3076,26 @@ PrefabInstance:
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
         type: 3}
       propertyPath: waves.Array.data[0].pairEnemyQuantity.Array.data[3].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[0].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[1].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[2].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[3].quantity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
@@ -3126,6 +3146,26 @@ PrefabInstance:
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
         type: 3}
       propertyPath: waves.Array.data[0].pairEnemyQuantity.Array.data[3].enemyTreeType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[0].enemyTreeType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[1].enemyTreeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[2].enemyTreeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
+        type: 3}
+      propertyPath: waves.Array.data[1].pairEnemyQuantity.Array.data[3].enemyTreeType
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2239028557969476999, guid: f364e57c2df7a3d49a1d369f664db060,
